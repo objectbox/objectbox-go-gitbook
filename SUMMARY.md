@@ -5,6 +5,9 @@
 * [Getting started](getting-started.md)
 * [Transactions](transactions.md)
 * [Entity Annotations](entity-annotations.md)
-* [FAQ](faq.md)
+* [Queries](queries.md)
+* [Schema changes](schema-changes.md)
 * [Sync](https://objectbox.io/sync/)
+* [FAQ](faq.md)
+* [ObjectBox GoDoc](https://godoc.org/github.com/objectbox/objectbox-go/objectbox)
 

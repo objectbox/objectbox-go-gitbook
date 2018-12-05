@@ -98,7 +98,7 @@ func main() {
 Wherever you have access to a Box, you can use it to persist objects and fetch objects from disk. **Boxes are thread safe.** Here are some of the basic operations:
 
 * **Put:** Persist an object, which may overwrite an existing object with the same ID. In other words, use `Put`to insert or update objects. When put succeeds, an ID will be assigned to the entity. 
-* **Get:** When you have an object's ID, you can get to the object very efficiently using `Get`. To get all objects of a type, use `GetAll`.
+* **Get:** When you have an object's ID, you can get to the object very efficiently using `Get`.  It will return `nil` & error in case an error occurred and `nil` without any error if the object doesn't exist. To get all objects of a type, use `GetAll`which returns a slice. 
 * **Remove:** Deletes a previously persisted object from its box. Use `RemoveAll` to delete all objects and empty the box.
 * **Count:** The number of objects stored in this box.
 

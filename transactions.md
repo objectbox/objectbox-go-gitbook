@@ -1,9 +1,3 @@
----
-description: >-
-  While you can use ObjectBox without doing transactions manually, sometimes
-  they come in handy.
----
-
 # Transactions
 
 ## Basics

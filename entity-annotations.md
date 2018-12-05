@@ -10,7 +10,7 @@ Here is an example:
 //go:generate objectbox-gogen
 
 type Task struct {
-	Id           uint64 `id`
+	Id           uint64
 	Text         string
 	DateCreated  int64
 	DateFinished int64
@@ -96,26 +96,40 @@ A `put()` operation will abort and return an error if the unique constraint is v
 ## Other annotations <a id="basic-annotations-for-entity-properties"></a>
 
 ```go
+// `uid:"1306759095002958910"`
 type Task struct {
 	Text  string `nameInDb:"text"`
 	Date  uint64 `date`
 	notes string `transient`
+	DateCreated  int64 `uid:"7144924247938981575"`
 }
 ```
-
-### \`nameInDb\` 
-
-Lets you define under what name the property is stored in the database. This allows you to rename the Go field without affecting the property name on the database level.
-
-### \`transient\`
-
-Marks properties that should not be persisted \(saved into DB\) and are only used in your program during runtime.
 
 ### \`date\`
 
 Informs the ObjectBox that it should store the given property as a DateType - it expects timestamp since UNIX epoch in milliseconds.
 
+### \`nameInDb\` 
+
+Lets you define under what name the property is stored in the database. This allows you to rename the Go field without affecting the property name on the database level. To rename the property in the DB, you should use the [\`uid\` annotation ](entity-annotations.md#uid)instead.
+
+### \`transient\`
+
+Marks properties that should not be persisted \(saved into DB\) and are only used in your program during runtime.
+
 ## Triggering generation <a id="triggering-generation"></a>
 
 Once your entity schema is in place, you can trigger the code generation by running `go generate` inside the directory that contains the files with the entities.
+
+### \`uid\`
+
+ObjectBox keeps track of entities and properties by assigning them unique IDs \(UIDs\) during the code-generation phase. All those UIDs are stored in a file `objectbox-model.json` in your package, which you should add to your version control system \(e.g. git\). 
+
+If you specify the \`uid:"....."\` tag on a property \(or as a special comment on an entity struct\), the ObjectBox would be able to identify it even after you change the name and would update the database accordingly on the next application launch. 
+
+For more information, look at the following page dedicated to schema updates.
+
+{% page-ref page="schema-changes.md" %}
+
+Additionally, If you are interested, we have [in-depth documentation on UIDs and concepts](https://docs.objectbox.io/advanced/meta-model-ids-and-uids) in the Java/Android docs. 
 

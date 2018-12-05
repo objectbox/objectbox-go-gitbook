@@ -1,9 +1,3 @@
----
-description: >-
-  ObjectBox is an easy to use, object-oriented lightweight database and a full
-  alternative to SQLite.
----
-
 # ObjectBox Go
 
 This is the ObjectBox documentation for our Go API. We strive to provide you with the easiest and fastest solution to store and retrieve data. 
@@ -15,6 +9,12 @@ This is the ObjectBox documentation for our Go API. We strive to provide you wit
 Your feedback on ObjectBox and this documentation is very welcome. Use the "Was this page helpful?" smiley at the end of each page or send us your comments to contact\[at\]objectbox.io - thank you! :\)
 
 ## Changelog
+
+### v0.8.0 \(2018-12-05\)
+
+* New [Query API](queries.md)
+* Box and Query do not require manual closing anymore
+* Support for [renaming entities and their properties](schema-changes.md) using UIDs
 
 ### v0.7.1 \(2018-11-30\)
 

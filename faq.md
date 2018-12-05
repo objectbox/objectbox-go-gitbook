@@ -1,7 +1,3 @@
----
-description: Frequently asked questions about ObjectBox Go.
----
-
 # FAQ
 
 ## How is ObjectBox different from BoltDB \(bolt/bbolt\) or Badger?
