@@ -10,7 +10,7 @@ Your feedback on ObjectBox and this documentation is very welcome. Use the "Was 
 
 ## Changelog
 
-### v0.8.0 \(2018-12-05\)
+### v0.8.0 \(2018-12-06\)
 
 * New [Query API](queries.md)
 * Box and Query do not require manual closing anymore

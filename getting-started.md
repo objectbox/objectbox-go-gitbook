@@ -57,9 +57,6 @@ import (
 
 func initObjectBox() *objectbox.ObjectBox {
 	objectBox, err := objectbox.NewBuilder().Model(model.ObjectBoxModel()).Build()
-	if err != nil {
-		panic(err)
-	}
 	return objectBox
 }
 ```
@@ -76,7 +73,7 @@ From ObjectBox you vend Box instances to manage your entities. While you can hav
 func main() {
    // load objectbox
    ob := initObjectBox()
-   defer ob.Destroy()
+   defer ob.Destroy() // In a server app, you would just keep it forever
    
    box := model.BoxForTask(ob)
    defer box.Destroy()
