@@ -42,7 +42,7 @@ var Device_ = struct {
 You can use `Device_` to construct type-specific conditions in place and combining them, forming the full query. The following example looks for devices located in the U. S. with profile number 42.
 
 ```go
-box.Query(Device_.Profile.Equal(42), Device_.Location.HasPrefix("US-", false))
+box.Query(Device_.Profile.Equals(42), Device_.Location.HasPrefix("US-", false))
 ```
 
 {% hint style="info" %}
