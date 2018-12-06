@@ -71,5 +71,5 @@ You have a few options how to handle the results of a query:
 
 ObjectBox core can do much more with the queries, such as ordering, limits & offsets, setting parameters on reusable queries, aliases, etc. These are not yet supported by our Go API, but you can take a peek at [https://docs.objectbox.io/queries](https://docs.objectbox.io/queries) to get the idea what's coming in the future releases. 
 
-Feel free to open a [feature request on GitHub](https://github.com/objectbox/objectbox-go/issues) with if you have an idea or a proposal.
+Feel free to open a [feature request on GitHub](https://github.com/objectbox/objectbox-go/issues) if you have an idea or a proposal.
 
