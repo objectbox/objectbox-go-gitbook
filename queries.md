@@ -63,13 +63,13 @@ You have a few options how to handle the results of a query:
 
 * `Find()` returns a slice of the matching objects,
 * `FindIds()`fetches just the IDs of the matching objects as a slice, which can be more efficient in case you don't need the whole object,
-* `Remove()` deletes all the matching object from the database \(in a single transaction\),
+* `Remove()` deletes all the matching objects from the database \(in a single transaction\),
 * `Count()` gives you the number of the objects that match the query,
 * `Describe()` is a utility function which returns a human-readable representation of the query.
 
 ### More to come <a id="ordering-results"></a>
 
-ObjectBox core can much more with the queries, such as ordering, limits & offsets, setting parameters on reusable queries, aliases, etc. These are not yet supported by our Go API, but you can take a peek at [https://docs.objectbox.io/queries](https://docs.objectbox.io/queries) to get the idea what's coming in the future releases. 
+ObjectBox core can do much more with the queries, such as ordering, limits & offsets, setting parameters on reusable queries, aliases, etc. These are not yet supported by our Go API, but you can take a peek at [https://docs.objectbox.io/queries](https://docs.objectbox.io/queries) to get the idea what's coming in the future releases. 
 
-Feel free to open a [feature request on GitHub](https://github.com/objectbox/objectbox-go/issues) in case you're lacking something important.
+Feel free to open a [feature request on GitHub](https://github.com/objectbox/objectbox-go/issues) with if you have an idea or a proposal.
 
