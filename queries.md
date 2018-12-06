@@ -15,7 +15,7 @@ devices, err := query.Find()
 
 ### Building queries
 
-As you've seen in the previous example, the query uses a function `StartsWith` on a device location. ObjectBox generates the `Device_` struct for you to reference properties conveniently. This also allows code completion in your IDE and avoids typos: correctness is checked at compile time \(string based queries would only be checked at run-time\).
+As you've seen in the previous example, the query uses a function `StartsWith` on a device location. ObjectBox generates a `Device_` struct for you to reference available properties conveniently. This also allows code completion in your IDE and avoids typos: correctness is checked at compile time \(string based queries would only be checked at run-time\).
 
 Let's say you have the following entity defined in your package:
 
@@ -28,7 +28,7 @@ type Device struct {
 }
 ```
 
-ObjectBox code generator creates a special struct variable `Device_` in the same package
+Based on this, the ObjectBox code generator creates a special struct variable `Device_` in the same package:
 
 ```go
 var Device_ = struct {
