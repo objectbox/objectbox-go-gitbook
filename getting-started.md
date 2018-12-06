@@ -32,8 +32,8 @@ Alternatively if your ID field is named differently, you can annotate it with \`
 Having the entity file, we can run bindings generator to get the necessary `task.obx.go` 
 
 ```bash
-cd internal/model
-go generate
+cd my-project-dir
+go generate ./...
 ```
 
 The generated bindings code has two main competencies:
@@ -73,10 +73,9 @@ From ObjectBox you vend Box instances to manage your entities. While you can hav
 func main() {
    // load objectbox
    ob := initObjectBox()
-   defer ob.Destroy() // In a server app, you would just keep it forever
+   defer ob.Close() // In a server app, you would just keep ob and close on shutdown
    
    box := model.BoxForTask(ob)
-   defer box.Destroy()
    
    // Create
    id, _ := box.Put(&model.Task{
