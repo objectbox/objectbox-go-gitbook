@@ -9,13 +9,13 @@ description: >-
 Using queries is simple: from your entity's `Box`, call `Query()` with conditions as arguments:
 
 ```go
-query := box.Query(Device_.Location.StartWith("US-", false))
+query := box.Query(Device_.Location.HasPrefix("US-", false))
 devices, err := query.Find()
 ```
 
 ### Building queries
 
-As you've seen in the previous example, the query uses a function `StartsWith` on a device location. ObjectBox generates a `Device_` struct for you to reference available properties conveniently. This also allows code completion in your IDE and avoids typos: correctness is checked at compile time \(string based queries would only be checked at run-time\).
+The query in the code above uses a function `HasPrefix` on a device location. Where does this come from? ObjectBox generates a `Device_` struct for you to reference available properties conveniently. This also allows code completion in your IDE and avoids typos: correctness is checked at compile time \(string based queries would only be checked at run-time\).
 
 Let's say you have the following entity defined in your package:
 
@@ -28,7 +28,7 @@ type Device struct {
 }
 ```
 
-Based on this, the ObjectBox code generator creates a special struct variable `Device_` in the same package:
+Using this input, the ObjectBox code generator creates a variable `Device_` in the same package:
 
 ```go
 var Device_ = struct {
@@ -42,7 +42,7 @@ var Device_ = struct {
 You can use `Device_` to construct type-specific conditions in place and combining them, forming the full query. The following example looks for devices located in the U. S. with profile number 42.
 
 ```go
-box.Query(Device_.Profile.Equal(42), Device_.Location.StartWith("US-", false))
+box.Query(Device_.Profile.Equal(42), Device_.Location.HasPrefix("US-", false))
 ```
 
 {% hint style="info" %}
@@ -51,13 +51,11 @@ If you frequently call the same query, you should cache the built query variable
 
 ### Notable conditions/operators <a id="notable-conditions"></a>
 
-In addition to expected conditions like `Equal()`, `NotEqual()`, `GreaterThan()` and `LessThan()` there are also conditions like:
+In addition to expected conditions like `Equals()`, `NotEquals()`, `GreaterThan()` and `LessThan()` there are also conditions like:
 
 * `Between()` to filter for values that are between the given two \(inclusive\)
 * `In()` and `NotIn()` to filter for values that match any in the given set,
-* `StartWith()`, `EndWith()` and `Contain()` for extended String filtering.
-
-Clearly, not all make sense for all of the supported types, please refer to the [Property\*](https://godoc.org/github.com/objectbox/objectbox-go/objectbox#Property) structs and their respective methods for a complete overview.
+* `HasPrefix()`, `HasSuffix()` and `Contains()` for extended String filtering.
 
 ### Working with query results
 
@@ -71,7 +69,7 @@ You have a few options how to handle the results of a query:
 
 ### More to come <a id="ordering-results"></a>
 
-ObjectBox core can much more with the queries, such as ordering, limits & offsets, parametrization of pre-built queries, aliases, etc. These are not yet supported by our Go API, but you can take a peek at [https://docs.objectbox.io/queries](https://docs.objectbox.io/queries) to get the idea what's coming in the future releases. 
+ObjectBox core can much more with the queries, such as ordering, limits & offsets, setting parameters on reusable queries, aliases, etc. These are not yet supported by our Go API, but you can take a peek at [https://docs.objectbox.io/queries](https://docs.objectbox.io/queries) to get the idea what's coming in the future releases. 
 
-Feel free to open a [feature request on GitHub](https://github.com/objectbox/objectbox-go/issues) in case you're missing something very much.
+Feel free to open a [feature request on GitHub](https://github.com/objectbox/objectbox-go/issues) in case you're lacking something important.
 
