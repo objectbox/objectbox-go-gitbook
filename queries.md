@@ -15,7 +15,7 @@ devices, err := query.Find()
 
 ### Building queries
 
-As you've seen in the previous example, the query uses a function `StartsWith` on a device location. ObjectBox generates the `Device_` variable for you so that you don't have to do it manually. 
+As you've seen in the previous example, the query uses a function `StartsWith` on a device location. ObjectBox generates the `Device_` struct for you to reference properties conveniently. This also allows code completion in your IDE and avoids typos: correctness is checked at compile time \(string based queries would only be checked at run-time\).
 
 Let's say you have the following entity defined in your package:
 
