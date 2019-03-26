@@ -7,6 +7,8 @@
 * [Entity Annotations](entity-annotations.md)
 * [Queries](queries.md)
 * [Schema changes](schema-changes.md)
+* [Custom types](custom-types.md)
+* [Relations](relations.md)
 * [Sync](https://objectbox.io/sync/)
 * [FAQ](faq.md)
 * [ObjectBox GoDoc](https://godoc.org/github.com/objectbox/objectbox-go/objectbox)

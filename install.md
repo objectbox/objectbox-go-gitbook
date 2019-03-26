@@ -3,7 +3,7 @@
 To get started with ObjectBox you can get the repository code as usual with `go get` and install the few prerequisites - flatbuffers, ObjectBox pre-compiled library and code generator generator.
 
 ```bash
-go get github.com/objectbox/objectbox-go
+go get github.com/objectbox/objectbox-go/...
 go get github.com/google/flatbuffers/go
 
 mkdir objectboxlib && cd objectboxlib
@@ -25,7 +25,6 @@ In case you're interested or are having trouble with the installation, the follo
 The main prerequisite to using the Go APIs is the ObjectBox binary library \(.so, .dylib, .dll depending on your  platform\) which actually implements the database functionality. In the [ObjectBox C repository,](https://github.com/objectbox/objectbox-c) you should find a `download.sh` script you can run. 
 
 ```bash
-go get github.com/google/flatbuffers/go
 curl https://raw.githubusercontent.com/objectbox/objectbox-c/master/download.sh > download.sh
 bash download.sh
 ```

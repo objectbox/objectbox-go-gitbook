@@ -10,6 +10,25 @@ Your feedback on ObjectBox and this documentation is very welcome. Use the "Was 
 
 ## Changelog
 
+### v0.9.0-rc \(2019-02-22\)
+
+As we queued up quite a few changes, we're doing a release candidate first for you to test:
+
+* Improved relations support
+* Embedded structs
+* Custom [value-converter ](custom-types.md)to store unsupported types & structs that can't be inlined/prefixed
+* Recognize and handle type aliases and named types used as entity fields
+* New Box methods: CountMax\(\), IsEmpty\(\), Contains\(\) and PutAsyncWithTimeout\(\)
+* Query support AND & OR \(combine conditions\)
+* New Query methods: [Limit, Offset](queries.md#limit-offset-and-pagination)
+* New Query methods: [Set\*Params \(type-based\) ](queries.md#reusing-queries-and-parameters)- to run a cached query with custom  parameters
+* Query LT\|GT\|Between support for unsigned numbers
+* Support numeric string ID in the entity
+* Support for`[]string` as a field type
+* Optional pass/return-by-value for slice-of-structs in the generated code
+* Change strings to use hash-based instead of value-based indexes by default
+* A new option to AlwaysAwaitAsync that can be enabled during initialization
+
 ### v0.8.0 \(2018-12-06\)
 
 * New [Query API](queries.md)

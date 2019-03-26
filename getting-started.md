@@ -101,5 +101,5 @@ Wherever you have access to a Box, you can use it to persist objects and fetch o
 ## Task-list example application
 
 To see it all put together, have a look at the Task-List application example in our git repository:  
-[https://github.com/objectbox/objectbox-go/tree/master/examples](https://https://github.com/objectbox/objectbox-go/tree/master/examples)
+[https://github.com/objectbox/objectbox-go/tree/master/examples](https://github.com/objectbox/objectbox-go/tree/master/examples)
 

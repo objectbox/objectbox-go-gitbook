@@ -45,9 +45,35 @@ You can use `Device_` to construct type-specific conditions in place and combini
 box.Query(Device_.Profile.Equals(42), Device_.Location.HasPrefix("US-", false))
 ```
 
-{% hint style="info" %}
-If you frequently call the same query, you should cache the built query variable and re-use it.
-{% endhint %}
+### Reusing Queries and Parameters <a id="reusing-queries-and-parameters"></a>
+
+If you frequently run a `Query` you should cache the `Query` object and re-use it. To make a `Query` more reusable you can change the values, or query parameters, of each condition you added even after the `Query` is built. Let's see how.
+
+Assume we want to find a list of `User` with specific `FirstName` values. First, we build a regular `Query` with an `equal()` condition for `FirstName`. Because we have to pass an initial parameter value to `equal()` but plan to override it before running the `Query` later, we just pass an empty string:
+
+```go
+var caseSensitive = false
+var query = box.Query(User_.FirstName.Equals("", caseSensitive))
+```
+
+Now at some later point we want to actually run the `Query`. To set a value for the `FirstName` parameter we call `setStringParams()` on the `Query` and pass the `FirstName` property and the new parameter value:
+
+```go
+query.SetStringParams(User_.FirstName, "Joe")
+joes, _ := query.Find()
+```
+
+### Limit, Offset, and Pagination <a id="limit-offset-and-pagination"></a>
+
+Sometimes you only need a subset of a query, for example the first 10 elements. This is especially helpful \(and resourceful\) when you have a high number of entities and you cannot limit the result using query conditions only. The built `Query` has  `.Offset()` and `.Limit()` methods to help you do that
+
+```go
+query := box.Query(User_.FirstName.Equals("Joe", false))
+joes, err := query.Offset(10).Limit(5).Find()
+```
+
+`Offset(n uint64):` the first `n` results are skipped.  
+`Limit(n uint64):` at most `n` results of this query are returned.
 
 ### Notable conditions/operators <a id="notable-conditions"></a>
 
@@ -65,11 +91,12 @@ You have a few options how to handle the results of a query:
 * `FindIds()`fetches just the IDs of the matching objects as a slice, which can be more efficient in case you don't need the whole object,
 * `Remove()` deletes all the matching objects from the database \(in a single transaction\),
 * `Count()` gives you the number of the objects that match the query,
-* `Describe()` is a utility function which returns a human-readable representation of the query.
+* `Limit()` and `Offset()` let you select just part of the result \(e. g. for paging\)
+* `DescribeParams()` is a utility function which returns a human-readable representation of the query.
 
 ### More to come <a id="ordering-results"></a>
 
-ObjectBox core can do much more with the queries, such as ordering, limits & offsets, setting parameters on reusable queries, aliases, etc. These are not yet supported by our Go API, but you can take a peek at [https://docs.objectbox.io/queries](https://docs.objectbox.io/queries) to get the idea what's coming in the future releases. 
+ObjectBox core can do much more with the queries, such as ordering, aliases, etc. These are not yet supported by our Go API, but you can take a peek at [https://docs.objectbox.io/queries](https://docs.objectbox.io/queries) to get the idea what's coming in the future releases. 
 
 Feel free to open a [feature request on GitHub](https://github.com/objectbox/objectbox-go/issues) if you have an idea or a proposal.
 
