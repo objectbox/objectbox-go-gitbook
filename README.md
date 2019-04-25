@@ -10,6 +10,11 @@ Your feedback on ObjectBox and this documentation is very welcome. Use the "Was 
 
 ## Changelog
 
+### v0.9.0 \(2019-04-24\)
+
+* Fixed macOS build and 32-bit query support.
+* Minor refactoring/linter issues
+
 ### v0.9.0-rc \(2019-02-22\)
 
 As we queued up quite a few changes, we're doing a release candidate first for you to test:
