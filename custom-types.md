@@ -48,7 +48,7 @@ Just to complete the example, those functions could be implemented like this:
 ```go
 // converts Unix timestamp in milliseconds (ObjectBox date field format) to time.Time
 func timeInt64ToEntityProperty(dbValue int64) (goValue time.Time) {
-	return time.Unix(dbValue/1000, dbValue%1000*1000000)
+	return time.Unix(dbValue/1000, dbValue%1000*1000000).UTC()
 }
 
 // converts time.Time to Unix timestamp in milliseconds 
