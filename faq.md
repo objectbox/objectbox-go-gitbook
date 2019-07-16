@@ -2,9 +2,9 @@
 
 ## How is ObjectBox different from BoltDB \(bolt/bbolt\) or Badger?
 
-BoltDB and Badger are **key/value stores**. These are database primitives using bytes for keys and values. Many databases, including ObjectBox, build on top of a K/V layer to provide a higher level interface than "just bytes".
+BoltDB and Badger are **key/value stores**. These are database primitives using bytes for keys and values. Many databases, including ObjectBox, build on top of a K/V layer to provide a higher level interface than "just bytes". One approach to do that is a separate ORM layer \(like GORM, Storm, etc.\). ObjectBox Go takes a slightly different approach, integrating both together to provide a concise and type-safe interface with great performance all in one package.
 
-ObjectBox is an **object database**. You interact with it using objects; the same structs you use in your Go code. Just like that, no tearing apart for SQL whatsoever required.
+Therefore, we call ObjectBox an **object database**. You interact with it using objects; the same structs you use in your Go code. Just like that, no tearing apart for SQL whatsoever required.
 
 Also, ObjectBox knows the "inside" of objects; and allows to query for struct fields \("properties"\). It also manages indexing for you, you just have to [specify which properties should be indexed](entity-annotations.md#basic-annotations-for-entity-properties).
 
@@ -25,10 +25,11 @@ It's perfectly fine to store data as JSON if you have a limited number of object
 
 ObjectBox comes with [ACID transactions](transactions.md). It has hard durability \(the "D" in ACID\) semantics. For synchronous transactions \(e.g. what happens under the hood for Box.Put\(\)\), data is stored durable once it returns. Unlike ObjectBox, many NoSQL DBs have relaxed durability semantics  \(e.g. a time window of second where data can be lost\).
 
-ObjectBox is not an in-memory database. The latter have high RAM requirements because they have to keep ALL data in memory. ObjectBox usage of RAM is flexible; it doesn't need much but makes use of RAM if it is available. That is why ObjectBox is usually as fast as an in-memory database.  
+ObjectBox is not an in-memory database. The latter have high RAM requirements because they have to keep ALL data in memory. ObjectBox usage of RAM is flexible; it doesn't need much but makes use of RAM if it is available. That is why ObjectBox is usually as fast as an in-memory database.
 
+## I'm getting "exit status 3221225781" on Windows
 
-
+Exit status 3221225781 is a secret code  :\) for a missing DLL on windows. So even if your code has been compiled successfully, Windows can't find the DLL when launching the application \(or tests\). The DLL needs to be copied somewhere Windows will recognize it. See [Installation on Windows](install.md#objectbox-library-on-windows) for instructions.
 
 
 

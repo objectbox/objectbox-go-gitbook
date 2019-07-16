@@ -8,30 +8,28 @@ You may not notice it, but almost all interactions with ObjectBox involve transa
 
 ## Explicit transactions <a id="explicit-transactions"></a>
 
-{% hint style="danger" %}
-This API is currently not published for general use and is subject to change.
-{% endhint %}
+All ObjectBox operations run in implicit transactions – unless an explicit transaction is in progress. In the latter case, multiple operations share the \(explicit\) transaction. In other words, with explicit transactions you control the transaction boundary. Doing so can greatly improve efficiency and consistency in your app.
 
-We learned that all ObjectBox operations run in implicit transactions – unless an explicit transaction is in progress. In the latter case, multiple operations share the \(explicit\) transaction. In other words, with explicit transactions you control the transaction boundary. Doing so can greatly improve efficiency and consistency in your app.
+The `ObjectBox::RunInReadTx()` and `ObjectBox::RunInWriteTx()` take a function as and argument and run it inside a transaction \(read-only or a write transaction, respectively\).
 
-The `ObjectBox::RunInTxn()` takes a function as and argument and runs it inside a transaction.
+There are multiple advantages of explicit transactions:
 
-The advantage of explicit transactions is that you can perform any number of operations and use objects of multiple boxes. In addition, you get a consistent \(transactional\) view on your data while the transaction is in progress.
+* you can perform any number of operations and use objects of multiple boxes, while having a consistent view of the data,
+* running multiple updates/inserts is faster because it doesn't involve starting an implicit transaction each time,
+* being able to "roll-back" a transaction when an error occurs, potentially discarding changes from multiple updates.
 
 Example for a write transaction which just inserts 1 000 000 objects:
 
 ```go
-var insert = uint64(1000000)
-ob.RunInTxn(false, func(tx *objectbox.Transaction) (error) {
-	cursor, _ := tx.CursorForName("Task")
-	for i := insert; i > 0; i-- {
-		cursor.Put(&model.Task{})
+ob.RunInWriteTx(func() error {
+	for i := 1000000; i > 0; i-- {
+		box.Put(&iot.Event{})
 	}
-	return nil
+	return nil // return no error so the transaction is not rolled back
 })
 ```
 
-Understanding transactions is essential to master database performance. If you just remember one sentence on this topic, it should be this one: a write transaction has its price.
+Understanding transactions is essential to mastering the database performance. If you just remember one sentence on this topic, it should be this one: a write transaction has its price, and it's the same whether it's implicit or explicit.
 
 Committing a transaction involves syncing data to the physical storage, which is a relatively expensive operation for databases. Only when the file system confirms that all data has been stored in a durable manner \(not just memory cached\), the transaction can be considered successful. This file sync required by a transaction may take a couple of milliseconds. Keep this in mind and try to group several operations \(e.g.`Put`calls\) in one transaction.
 
@@ -45,7 +43,7 @@ While read transaction are much cheaper than write transactions, there is still 
 
 ObjectBox gives developers [Multiversion concurrency control \(MVCC\)](https://en.wikipedia.org/wiki/Multiversion_concurrency_control) semantics. This allows multiple concurrent readers \(read transactions\) which can execute immediately without blocking or waiting. This is guaranteed by storing multiple versions of \(committed\) data. Even if a write transaction is in progress, a read transaction can read the last consistent state immediately. Write transactions are executed sequentially to ensure a consistent state. Thus, it is advised to keep write transactions short to avoid blocking other pending write transactions. For example, it is usually a bad idea to do networking or complex calculations while inside a write transaction. Instead, do any expensive operation and prepare objects before entering a write transaction.
 
-Note that you do not have to worry about making write transactions sequential yourself. If multiple threads want to write at the same time \(e.g. via `put` or `RunInTxn`\), one of the treads will be selected to go first, while the other threads have to wait. It works just like a `mutex.Lock()`
+Note that you do not have to worry about making write transactions sequential yourself. If multiple threads want to write at the same time \(e.g. via `Box::Put` or `ObjectBox::RunInWriteTx`\), one of the treads will be selected to go first, while the other threads have to wait. It works just like a `mutex.Lock()`
 
 ### Locking inside a Write Transaction <a id="locking-inside-a-write-transaction"></a>
 

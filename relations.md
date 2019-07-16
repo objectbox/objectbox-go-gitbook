@@ -5,7 +5,7 @@ Objects may reference other objects, for example using a simple reference or a l
 If there is one target object, we call the relation **to-one.** And if there can be multiple target objects, we call it **to-many**. 
 
 {% hint style="info" %}
-Relations are currently initialized eagerly - i.e. the targets are loaded & as soon as the source object is read from the database. This might change in the future to lazy-loading by default, to increase performance when you don't need the referenced data.
+Relations are initialized eagerly by default - i.e. the targets are loaded & as soon as the source object is read from the database. Lazy/manual loading of to-many relations is possible, using an annotation. 
 {% endhint %}
 
 ## To-One Relations
@@ -17,11 +17,9 @@ You define a to-one relation using \`link\` annotation on a field that is a poin
 {% code-tabs %}
 {% code-tabs-item title="model.go" %}
 ```go
-//go:generate objectbox-gogen
-
 type Order struct {
 	Id        uint64
-	Customer  *Customer `link`
+	Customer  *Customer `objectbox:"link"`
 	Notes     string
 }
 
@@ -103,15 +101,13 @@ Currently, one-to-many relations are defined implicitly as an opposite relation 
 
 ![Many-to-Many \(N:M\)](http://objectbox.io/wordpress/wp-content/uploads/2017/02/Many-To-Many-2.png)
 
-To define a to-many relation, you can use a slice of entities - no need to specify the `link` annotation this time. They're stored when you put the source entity and loaded when you read it from the database
+To define a to-many relation, you can use a slice of entities - no need to specify the `link` annotation this time because ObjectBox wouldn't know how to store a slice of structs by itself anyway so it assumes it must be a many-to-may relation. They're stored when you put the source entity and loaded when you read it from the database, unless you specify a `lazy` annotation in which case, they're loaded manually, using `Box::GetRelated()`.
 
 Assuming a students and teachers example, this is how a simple student class that has a to-many relation to teachers can look like:
 
 {% code-tabs %}
 {% code-tabs-item title="model.go" %}
 ```go
-//go:generate objectbox-gogen
-
 type Teacher struct {
 	Id    uint64
 	Name  string
@@ -132,7 +128,6 @@ type Student struct {
 {% code-tabs-item title="main.go" %}
 ```go
 var teacher1 = &model.Teacher{Name: "John Wise"}
-
 var teacher2 = &model.Teacher{Name: "Peter Clever"}
 
 var student1 = &model.Student{
@@ -153,7 +148,7 @@ box.Put(student2)
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-Similar to the to-one relations, related entities are inserted automatically if they are new. If the teacher entities do not yet exist in the database, the ToMany will also put them. If they already exist, the ToMany will only create the relation \(but not put them\). 
+Similar to the to-one relations, related entities are inserted automatically if they are new. If the teacher entities do not yet exist in the database, the to-many will also put them. If they already exist, the to-many will only create the relation \(but not put them\). 
 
 To **get** the teachers of a student we just access the list:
 
@@ -170,4 +165,76 @@ for _, teacher := range student1.Teachers {
 {% endcode-tabs %}
 
 **Remove** and **update** work similar to insert - you just change the `student.Teachers` slice to reflect the new state \(i.e. remove element, add elements, etc\) and `box.Put(student)`. Note that if you want to change actual teacher data \(e.g. change teachers name\), you need to update the teacher entity itself, not just change it in one of the student.Teachers slice.
+
+### Lazy loading
+
+In case the slices might contain many objects and you don't need to access the slice of the related objects each time you work with the source object, you may consider enabling the so called lazy-loading. You do that by specifying the \`lazy\` annotation on the field. Consider the updated model of the previous example: 
+
+{% code-tabs %}
+{% code-tabs-item title="model.go" %}
+```go
+type Teacher struct {
+	Id    uint64
+	Name  string
+}
+
+type Student struct {
+    Id        uint64
+    Name      string
+    Teachers  []*Teacher `objectbox:"lazy"`
+}
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+This way, when you read a `Student` object, the `Teachers` field would be `nil` and you can work with the student as you wish, changing it and saving and the list of assigned teachers wouldn't change as long as the `Teachers` field stays `nil`. If it wasn't `nil`, but a slice of Teachers instead, ObjectBox would recognize this as an update of the field and replace the relational links.
+
+#### Reading a lazy-loaded slice
+
+To access the list of `Teachers`, we need to first load them. ObjectBox has generated a helper method just for that
+
+{% code-tabs %}
+{% code-tabs-item title="main.go" %}
+```go
+var box = model.BoxForStudent(ob)
+
+var student1 = box.Get(1);
+
+// at this point `student1.Teachers == nil`, so if we need it, we must load it first
+box.GetRelated(student1) // loads all lazy-loaded relations
+
+// or alternatively load just the Teachers property 
+// (useful if there were other lazy-loaded relations we didn't care about this time)
+box.GetRelated(student1, Student_.Teachers)
+
+// now the teachers are loaded and we can access them as usual
+for _, teacher := range student1.Teachers {
+    fmt.PrintLn(teacher.Name)
+}
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+#### Updating a lazy-loaded slice
+
+To update the list of `Teachers`, we can either overwrite the slice with completely new data \(new slice\), or if we want to keep the original data and update it, e.g. change a few items, we need to load them first the same way as when [reading \(above\)](relations.md#reading-a-lazy-loaded-slice).
+
+{% code-tabs %}
+{% code-tabs-item title="main.go" %}
+```go
+var box = model.BoxForStudent(ob)
+
+var student1 = box.Get(1);
+
+// propagate student1.Teachers based on the current data in DB
+box.GetRelated(student1, Student_.Teachers)
+
+// add a new teacher to the existing
+student1.Teachers = append(student1.Teachers, &model.Teacher{Name: "Peter Clever"})
+
+// save the updated list, including a new teacher
+box.Put(student1)
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 

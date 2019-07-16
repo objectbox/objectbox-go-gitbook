@@ -29,7 +29,7 @@ For example, you could define a color in your entity using a custom `Color` stru
 type Task struct {
 	Id          uint64
 	Text        string
-	DateCreated time.Time  `date type:"int64" converter:"timeInt64"`
+	DateCreated time.Time  `objectbox:"date type:int64 converter:timeInt64"`
 }
 ```
 

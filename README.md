@@ -2,13 +2,23 @@
 
 This is the ObjectBox documentation for our Go API. We strive to provide you with the easiest and fastest solution to store and retrieve data. 
 
-{% hint style="warning" %}
-**Pre 1.0 note:** Until we hit 1.0, there still might be API changes. Please [open a GitHub issue](https://github.com/objectbox/objectbox-go/issues) if you have ideas how to improve the API.
-{% endhint %}
-
 Your feedback on ObjectBox and this documentation is very welcome. Use the "Was this page helpful?" smiley at the end of each page or send us your comments to contact\[at\]objectbox.io - thank you! :\)
 
 ## Changelog
+
+### v1.0.0 \(2019-07-16\)
+
+This is quite a big release, bringing some new features and cleaning up the API.
+
+* explicit transaction support via `ObjectBox::RunInReadTx` and `ObjectBox::RunInWriteTx`
+* Go Modules support
+* add `objectbox` namespace to tags to align with `reflect.StructTag.Get` unofficial spec
+* optional lazy loading on to-many relations - `lazy` annotation
+* box additions:
+  * `GetMany` , `RemoveMany`, `RemoveIds`, `ContainsIds`, `RemoveIds`
+  * to-many relation auxiliary methods: `RelationIds` , `RelationPut`, `RelationRemove`, `RelationReplace`
+* switch default/recommended `go:generate` entity generator command from `objectbox-gogen` to  `//go:generate go run github.com/objectbox/objectbox-go/cmd/objectbox-gogen`
+* quite a few internal changes, renames and other refactorings \(e.g. renamed `PutAll` to `PutMany`, removed `Cursor`, aligned model JSON with other bindings, ...\)
 
 ### v0.9.0 \(2019-04-24\)
 

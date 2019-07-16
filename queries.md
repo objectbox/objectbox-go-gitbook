@@ -94,6 +94,52 @@ You have a few options how to handle the results of a query:
 * `Limit()` and `Offset()` let you select just part of the result \(e. g. for paging\)
 * `DescribeParams()` is a utility function which returns a human-readable representation of the query.
 
+### Querying linked objects \(relations\) <a id="ordering-results"></a>
+
+After creating a relation between entities, you might want to add a query condition for a property that only exists in the related entity. In SQL this is solved using JOINs. ObjectBox provides query links instead.   
+Let's see how this works using an example.
+
+Assume there is a `Person` that can be associated with multiple `Address` entities:
+
+```go
+//go:generate go run github.com/objectbox/objectbox-go/cmd/objectbox-gogen
+
+type Person struct {
+	Id       uint64
+	Name     string
+	Address  []*Address
+}
+
+type Address struct {
+	Id     uint64
+	Street string
+	ZIP    string
+}
+```
+
+To get a `Person` with a certain name that also lives on a specific street, we need to query the associated `Address` entities of a `Person`. To do this, use the `Person_.Address.Link(cs ...Conditions)` method of the generated `Person_` variable to tell that the `addresses` relation should be queried and what conditions should be used to filter the addresses:
+
+```go
+// get all Person objects named "Elmo" which have an address on "Sesame Street"
+var query = BoxForPerson(ob).Query(
+	Person_.name.Equals("Elmo", true),
+	Person_.Address.Link(Address_.Street.Equals("Sesame Street", true)),
+)
+var elmosOnSesameStreet = query.Find()
+```
+
+What if we want to get a list of `Address` instead of `Person`? No problem, links are smart enough to know there's also an implicit relation in the opposite direction. Note the different `box` we're using here:
+
+```go
+// get all Address objects on "Sesame Street" linked from a Person named "Elmo"
+val builder = box.query().equal(Address_.street, "Sesame Street")
+var query = BoxForAddress(ob).Query(
+    Address_.Street.Equals("Sesame Street", true),
+	Person_.Address.Link(Person_.name.Equals("Elmo", true)),
+)
+var addressesSesameStreetWithElmo = query.Find()
+```
+
 ### More to come <a id="ordering-results"></a>
 
 ObjectBox core can do much more with the queries, such as ordering, aliases, etc. These are not yet supported by our Go API, but you can take a peek at [https://docs.objectbox.io/queries](https://docs.objectbox.io/queries) to get the idea what's coming in the future releases. 

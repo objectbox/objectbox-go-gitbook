@@ -2,7 +2,7 @@
 
 ObjectBox manages its data model \(schema\) mostly automatically. The data model is defined by the entity structs you define. When you **add or remove** entities or properties of your entities, **ObjectBox takes care** of those changes without any further action from you.
 
-For other changes like **renaming or changing the type**, ObjectBox needs **extra information** to make things unambiguous. This works using unique identifiers \(UIDs\) specified by the [\`uid\` annotation](entity-annotations.md#uid), as we will see below.
+For other changes like **renaming or changing the type**, ObjectBox needs **extra information** to make things unambiguous. This works using unique identifiers \(UIDs\) specified by the [uid annotation](entity-annotations.md#uid), as we will see below.
 
 ## Renaming Entities and Properties <a id="renaming-entities-and-properties"></a>
 
@@ -17,17 +17,17 @@ So to tell ObjectBox to do a rename instead of discarding your old entity and da
 
 The process works the same if you want to rename a property, but instead of the comment, you just use standard Go tags. We are showing both cases in the examples
 
- **Step 1:** Add an empty \`uid\` annotation to the entity/property you want to rename:
+ **Step 1:** Add an empty \`objectbox:"uid"\` annotation to the entity/property you want to rename:
 
 ```go
-// `uid`
+// `objectbox:"uid"`
 type OldEntityName struct {
 	Id  uint64
 }
 
 type Task struct {
 	Id  uint64
-	OldPropertyName string `uid`
+	OldPropertyName string `objectbox:"uid"`
 }
 ```
 
@@ -46,28 +46,28 @@ can't merge binding model information: uid annotation value must not be empty
  **Step 3:** Apply the UID printed in the error message to your entity/property:
 
 ```go
-// `uid:"1306759095002958910"`
+// `objectbox:"uid:1306759095002958910"`
 type OldEntityName struct {
 	Id  uint64
 }
 
 type Task struct {
 	Id  uint64
-	OldPropertyName string `uid:"9141374017424160113"`
+	OldPropertyName string `objectbox:"uid:9141374017424160113"`
 }
 ```
 
- **Step 4:** The last thing to do is the actual rename on the language level \(Java, Kotlin, etc.\):
+ **Step 4:** The last thing to do is the actual rename on the language level:
 
 ```go
-// `uid:"1306759095002958910"`
+// `objectbox:"uid:1306759095002958910"`
 type RenamedEntity struct {
 	Id  uint64
 }
 
 type Task struct {
 	Id  uint64
-	RenamedProperty string `uid:"9141374017424160113"`
+	RenamedProperty string `objectbox:"uid:9141374017424160113"`
 }
 ```
 

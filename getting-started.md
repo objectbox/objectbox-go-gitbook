@@ -11,7 +11,7 @@ First of all, let's define an Entity which is just a `struct`. It could be locat
 ```go
 package model
 
-//go:generate objectbox-gogen
+//go:generate go run github.com/objectbox/objectbox-go/cmd/objectbox-gogen
 
 type Task struct {
 	Id           uint64
@@ -26,7 +26,8 @@ type Task struct {
 {% hint style="info" %}
 Note that `Id uint64` is recognized by ObjectBox to contain an ID field which gives us a direct access to the stored Tasks objects by their ID. 
 
-Alternatively if your ID field is named differently, you can annotate it with \`id\` tag. For more information see [Entity Annotations](entity-annotations.md).
+Alternatively if your ID field is named differently, you can annotate it with \`objectbox:"id"\`.  
+For more information see [Entity Annotations](entity-annotations.md).
 {% endhint %}
 
 Having the entity file, we can run bindings generator to get the necessary `task.obx.go` 
