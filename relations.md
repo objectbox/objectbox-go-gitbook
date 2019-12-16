@@ -14,8 +14,7 @@ Relations are initialized eagerly by default - i.e. the targets are loaded & as 
 
 You define a to-one relation using \`link\` annotation on a field that is a pointer or value type of another entity. Consider the following example - the Order entity has a to-one relation to the Customer entity.
 
-{% code-tabs %}
-{% code-tabs-item title="model.go" %}
+{% code title="model.go" %}
 ```go
 type Order struct {
 	Id        uint64
@@ -28,13 +27,11 @@ type Customer struct {
     Name  string
 }
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 Now let's add a customer with a few orders.
 
-{% code-tabs %}
-{% code-tabs-item title="main.go" %}
+{% code title="main.go" %}
 ```go
 // note that here we're creating a new customer
 // but we could have also reused an existing one
@@ -58,15 +55,13 @@ box.Put(&model.Order{
     Customer: customer,
 })
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 After the `box.Put` has been executed on the first order, the `customer.Id` would be `1` because we're using pointers \(`Customer *Customer` field\) so Put could update the variable when it has inserted the Customer. Note that this wouldn't be possible if we were using copies \(`Customer Customer` field\) and in that case you should insert the customer manually into it's box first \(or use an existing customer selected from the database\).
 
 We can also **read**, **update** or **remove** the relationship to a customer:
 
-{% code-tabs %}
-{% code-tabs-item title="main.go" %}
+{% code title="main.go" %}
 ```go
 var box = model.BoxForOrder(ob)
 
@@ -81,8 +76,7 @@ customers, _ := model.BoxForCustomer(ob).GetAll()
 order.Customer = customers[2]
 box.Put(order)
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 Note that removing the relation does not remove the customer from the database, it removes only the link between this specific order and the customer.
 
@@ -105,8 +99,7 @@ To define a to-many relation, you can use a slice of entities - no need to speci
 
 Assuming a students and teachers example, this is how a simple student class that has a to-many relation to teachers can look like:
 
-{% code-tabs %}
-{% code-tabs-item title="model.go" %}
+{% code title="model.go" %}
 ```go
 type Teacher struct {
 	Id    uint64
@@ -119,13 +112,11 @@ type Student struct {
     Teachers  []*Teacher
 }
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 **Adding** the teachers of a student works exactly like with a list:
 
-{% code-tabs %}
-{% code-tabs-item title="main.go" %}
+{% code title="main.go" %}
 ```go
 var teacher1 = &model.Teacher{Name: "John Wise"}
 var teacher2 = &model.Teacher{Name: "Peter Clever"}
@@ -145,15 +136,13 @@ var box = model.BoxForStudent(ob)
 box.Put(student1)
 box.Put(student2)
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 Similar to the to-one relations, related entities are inserted automatically if they are new. If the teacher entities do not yet exist in the database, the to-many will also put them. If they already exist, the to-many will only create the relation \(but not put them\). 
 
 To **get** the teachers of a student we just access the list:
 
-{% code-tabs %}
-{% code-tabs-item title="main.go" %}
+{% code title="main.go" %}
 ```go
 var student1 = model.BoxForStudent(ob).Get(1);
 
@@ -161,8 +150,7 @@ for _, teacher := range student1.Teachers {
     fmt.PrintLn(teacher.Name)
 }
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 **Remove** and **update** work similar to insert - you just change the `student.Teachers` slice to reflect the new state \(i.e. remove element, add elements, etc\) and `box.Put(student)`. Note that if you want to change actual teacher data \(e.g. change teachers name\), you need to update the teacher entity itself, not just change it in one of the student.Teachers slice.
 
@@ -170,8 +158,7 @@ for _, teacher := range student1.Teachers {
 
 In case the slices might contain many objects and you don't need to access the slice of the related objects each time you work with the source object, you may consider enabling the so called lazy-loading. You do that by specifying the \`lazy\` annotation on the field. Consider the updated model of the previous example: 
 
-{% code-tabs %}
-{% code-tabs-item title="model.go" %}
+{% code title="model.go" %}
 ```go
 type Teacher struct {
 	Id    uint64
@@ -184,8 +171,7 @@ type Student struct {
     Teachers  []*Teacher `objectbox:"lazy"`
 }
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 This way, when you read a `Student` object, the `Teachers` field would be `nil` and you can work with the student as you wish, changing it and saving and the list of assigned teachers wouldn't change as long as the `Teachers` field stays `nil`. If it wasn't `nil`, but a slice of Teachers instead, ObjectBox would recognize this as an update of the field and replace the relational links.
 
@@ -193,8 +179,7 @@ This way, when you read a `Student` object, the `Teachers` field would be `nil` 
 
 To access the list of `Teachers`, we need to first load them. ObjectBox has generated a helper method just for that
 
-{% code-tabs %}
-{% code-tabs-item title="main.go" %}
+{% code title="main.go" %}
 ```go
 var box = model.BoxForStudent(ob)
 
@@ -212,15 +197,13 @@ for _, teacher := range student1.Teachers {
     fmt.PrintLn(teacher.Name)
 }
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 #### Updating a lazy-loaded slice
 
 To update the list of `Teachers`, we can either overwrite the slice with completely new data \(new slice\), or if we want to keep the original data and update it, e.g. change a few items, we need to load them first the same way as when [reading \(above\)](relations.md#reading-a-lazy-loaded-slice).
 
-{% code-tabs %}
-{% code-tabs-item title="main.go" %}
+{% code title="main.go" %}
 ```go
 var box = model.BoxForStudent(ob)
 
@@ -235,6 +218,5 @@ student1.Teachers = append(student1.Teachers, &model.Teacher{Name: "Peter Clever
 // save the updated list, including a new teacher
 box.Put(student1)
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 

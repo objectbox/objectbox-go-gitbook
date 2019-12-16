@@ -152,6 +152,14 @@ Defines converter for custom types, see [Custom types docs](custom-types.md) for
 
 Informs ObjectBox that it should store the given property as a DateType - it expects timestamp since UNIX epoch in milliseconds.
 
+If you use a `time.Time` field, it's automatically recognized as a date and the code generator will use the built-in converter and store the field internally as a Unix timestamp.
+
+{% hint style="warning" %}
+Because ObjectBox stores dates internally as Unix timestamps with **millisecond** precision, the built-in converter falls-back to that precision when working with `time.Time` struct. 
+
+If you require greater precision, define  your own converter with any built-in supported type that can accommodate your storage format \(e.g. `int`, `string`, `[]byte`, etc.\).
+{% endhint %}
+
 ### lazy
 
 Specifies that the "To-Many" relation on the current field should not be called right away when the object is read but manually, using GetRelated. See [Relations docs](relations.md#to-many-relations) for more details.

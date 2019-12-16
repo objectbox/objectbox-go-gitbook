@@ -6,6 +6,27 @@ Your feedback on ObjectBox and this documentation is very welcome. Use the "Was 
 
 ## Changelog
 
+### v1.1.0 \(2019-12-16\)
+
+* add Box `Insert` and `Update` methods with stricter semantics than `Put`
+* add AsyncBox with `Put`, `Insert`, `Update`, `Remove`
+* add Query order and parameter alias support - see [Queries](queries.md) docs for more info
+* Code generator improvements
+  * handle type-checker errors more gracefully \(don't fail on failures in unneeded imports\) 
+  * add `clean` command-line option to remove all generated files
+  * `time.Time` will automatically use a built in converter to Unix timestamp \(milliseconds\)
+  * improve model.json file diff-level compatibility with other language bindings
+  * embedded struct and to-one relations cycle detection
+  * support changing property type and resetting its stored value
+  * nil check for embedded pointer structs in the generated code
+  * minor bug fixes when the generated code wouldn't compile in some edge cases
+* update to the latest ObjectBox-C library v0.8.1
+* deprecate `box.PutAsync()` in favor of `box.async().Put()` i.e. using AsyncBox
+* mark `byte` properties as unsigned
+* fix getters on objects with missing relations and non-existent IDs in `GetMany`
+* better windows installation experience using a PowerShell script
+* make `golint` happier :\)
+
 ### v1.0.0 \(2019-07-16\)
 
 This is quite a big release, bringing some new features and cleaning up the API.

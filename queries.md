@@ -63,7 +63,35 @@ query.SetStringParams(User_.FirstName, "Joe")
 joes, _ := query.Find()
 ```
 
-### Limit, Offset, and Pagination <a id="limit-offset-and-pagination"></a>
+### Alias/As <a id="alias"></a>
+
+So you might already be wondering, what happens if you have more than one condition using the same property? For this purpose you can **assign each condition an alias** by calling `Alias()` right after specifying the condition:
+
+```go
+var query = box.Query(
+		User_.Age.GreaterThan().Alias("min age"),
+		User_.Age.LessThan().Alias("max age"))
+		
+// Then use the alias when setting the parameter value
+query.SetInt64Params(objectbox.Alias("min age"), 50)
+query.SetInt64Params(objectbox.Alias("max age"), 100)
+```
+
+There's also an alternative, syntax for a aliases that makes it easier to maintain the code because it avoids repeating string constants:
+
+```go
+var minAgeAlias = objectbox.Alias("min age")
+var maxAgeAlias = objectbox.Alias("max age")
+var query = box.Query(
+		User_.Age.GreaterThan().As(minAgeAlias),
+		User_.Age.LessThan().As(maxAgeAlias))
+		
+// Then use the alias when setting the parameter value
+query.SetInt64Params(minAgeAlias, 50)
+query.SetInt64Params(maxAgeAlias, 100)
+```
+
+### Limit, Offset, and Pagination <a id="limit-offset"></a>
 
 Sometimes you only need a subset of a query, for example the first 10 elements. This is especially helpful \(and resourceful\) when you have a high number of entities and you cannot limit the result using query conditions only. The built `Query` has  `.Offset()` and `.Limit()` methods to help you do that
 
@@ -75,7 +103,27 @@ joes, err := query.Offset(10).Limit(5).Find()
 `Offset(n uint64):` the first `n` results are skipped.  
 `Limit(n uint64):` at most `n` results of this query are returned.
 
-### Notable conditions/operators <a id="notable-conditions"></a>
+### Ordering results <a id="notable-conditions"></a>
+
+In addition to specifying conditions you can order the returned results:
+
+```go
+query := box.Query(User_.FirstName.Equals("Joe", false), User_.Age.OrderDesc())
+joes, err := query.Find()
+```
+
+You can combine multiple order parameters and options \(some options are only available for certain data types, e.g. strings have case-sensitive ordering option\), such as:
+
+```go
+query := box.Query(
+    User_.FirstName.Equals("Joe", false), 
+    User_.LastName.OrderDesc(false), // caseSensitive bool argument
+    User_.Age.OrderAsc()
+)
+joes, err := query.Find()
+```
+
+### Notable conditions/operators
 
 In addition to expected conditions like `Equals()`, `NotEquals()`, `GreaterThan()` and `LessThan()` there are also conditions like:
 
@@ -142,7 +190,7 @@ var addressesSesameStreetWithElmo = query.Find()
 
 ### More to come <a id="ordering-results"></a>
 
-ObjectBox core can do much more with the queries, such as ordering, aliases, etc. These are not yet supported by our Go API, but you can take a peek at [https://docs.objectbox.io/queries](https://docs.objectbox.io/queries) to get the idea what's coming in the future releases. 
+ObjectBox core can do much more with the queries, such as property queries, aliases, etc. These are not yet supported by our Go API, but you can take a peek at [https://docs.objectbox.io/queries](https://docs.objectbox.io/queries) to get the idea what's coming in the future releases. 
 
 Feel free to open a [feature request on GitHub](https://github.com/objectbox/objectbox-go/issues) if you have an idea or a proposal.
 

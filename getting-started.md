@@ -6,8 +6,7 @@ Using ObjectBox in your project is fairly straight-forward.
 
 First of all, let's define an Entity which is just a `struct`. It could be located basically anywhere but to keep our project structure clean, let's have it in a `internal/model/task.go` i. e. `model` package.
 
-{% code-tabs %}
-{% code-tabs-item title="internal/model/task.go" %}
+{% code title="internal/model/task.go" %}
 ```go
 package model
 
@@ -20,8 +19,7 @@ type Task struct {
 	DateFinished int64
 }
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 {% hint style="info" %}
 Note that `Id uint64` is recognized by ObjectBox to contain an ID field which gives us a direct access to the stored Tasks objects by their ID. 
@@ -68,8 +66,7 @@ Bet you wondered where our name comes from :\)
 
 From ObjectBox you vend Box instances to manage your entities. While you can have multiple Box instances of the same type \(for the same Entity\) "open" at once, it's usually preferable to just use one instance and pass it around your code. 
 
-{% code-tabs %}
-{% code-tabs-item title="main.go" %}
+{% code title="main.go" %}
 ```go
 func main() {
    // load objectbox
@@ -89,8 +86,7 @@ func main() {
    box.Remove(task)      // Delete
 }
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 Wherever you have access to a Box, you can use it to persist objects and fetch objects from disk. **Boxes are thread safe.** Here are some of the basic operations:
 

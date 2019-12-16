@@ -13,9 +13,7 @@ So why do we need that UID annotation? If you simply rename an entity struct, Ob
 
 So to tell ObjectBox to do a rename instead of discarding your old entity and data, you need to make sure it knows that this is the same entity and not a new one. You do that by attaching the internal UID to the entity.
 
-### Step-by-step example
-
-The process works the same if you want to rename a property, but instead of the comment, you just use standard Go tags. We are showing both cases in the examples
+For properties, the process is the same, but instead of the comment, you just use standard Go tags. We are showing both cases in the following example.
 
  **Step 1:** Add an empty \`objectbox:"uid"\` annotation to the entity/property you want to rename:
 
@@ -33,15 +31,24 @@ type Task struct {
 
  **Step 2:** Re-generate ObjectBox code for the project using `go generate ./...` in your project directory. The generation will fail with an error message that gives you the current UID of the entity/property:
 
+{% code title="output for empty \"uid\" annotation on an entity" %}
 ```text
 can't merge binding model information: uid annotation value must not be empty 
 (model entity UID = 1306759095002958910) on entity OldEntityName
 ```
+{% endcode %}
 
+{% code title="output for empty \"uid\" annotation on a property" %}
 ```text
-can't merge binding model information: uid annotation value must not be empty 
-(model property UID = 9141374017424160113) on property OldPropertyName, entity Task
+can't merge binding model information: uid annotation value must not be empty on property OldPropertyName, entity Task:
+    [rename] apply the current UID 9141374017424160113
+    [change/reset] apply a new UID 6050128673802995827
 ```
+{% endcode %}
+
+{% hint style="info" %}
+Note how for a property, the output is slightly different and, besides support for renaming, it provides a newly generated UID you can use to effectively reset \(clean\) the stored data on the property. See [Reset data - new UID on a property](schema-changes.md#reset-data-new-uid-on-the-property) for more details.
+{% endhint %}
 
  **Step 3:** Apply the UID printed in the error message to your entity/property:
 
@@ -74,4 +81,74 @@ type Task struct {
  You can now use your renamed entity/property as expected and all existing data will still be there.
 
  Note: Instead of the above you can also find the UID of the entity/property in the `objectbox-model.json` file yourself and add it together with the @Uid annotation before renaming your entity/property.
+
+## Changing Property Types
+
+{% hint style="warning" %}
+ObjectBox does not support migrating existing property data to a new type. You will have to take care of this yourself, e.g. by keeping the old property and adding some migration logic.
+{% endhint %}
+
+### **N**ew property, different name
+
+{% hint style="info" %}
+This solution useful if you need data migration or just want to keep the old data around.
+{% endhint %}
+
+```go
+type Task struct {
+	Id  uint64
+	OldProperty string 
+}
+
+// becomes
+
+type Task struct {
+	Id  uint64
+	OldProperty string 
+	NewProperty int
+}
+
+// Note, if the property already had an UID annotation, 
+//  don't add the same UID to the new property - skip the annotation instead.
+```
+
+### **Reset data - new UID on a property**
+
+{% hint style="warning" %}
+This solution useful if you don't care about the original data at all = it will be lost.
+{% endhint %}
+
+ **Step 1:** Add an empty \`objectbox:"uid"\` annotation to the ****property you want to reset:
+
+```go
+type Task struct {
+	Id  uint64
+	Property string `objectbox:"uid"`
+}
+```
+
+ **Step 2:** Re-generate ObjectBox code for the project using `go generate ./...` in your project directory. The generation will fail with an error message that gives you the current UID of the property:
+
+{% code title="" %}
+```text
+can't merge binding model information: uid annotation value must not be empty on property Property, entity Task:
+    [rename] apply the current UID 9141374017424160113
+    [change/reset] apply a new UID 6050128673802995827
+```
+{% endcode %}
+
+ **Step 3:** Apply the UID printed in the error message to your property \(and change its type\):
+
+```go
+type Task struct {
+	Id  uint64
+	Property int `objectbox:"uid:6050128673802995827"`
+}
+```
+
+You can now use the property in your entity as if it was a new one. 
+
+{% hint style="warning" %}
+The original property data isn't really removed right away on old stored objects but will be empty when read from DB and overwritten \(thus finally lost\) next time an object is written.
+{% endhint %}
 
