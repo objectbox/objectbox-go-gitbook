@@ -6,7 +6,9 @@ We're trying to make the installation experience smooth for everyone. In case yo
 
 This section describe the installation on Linux or macOS, if you're using Windows, please skip to the [Installation on Windows](install.md#windows) section. 
 
-The only prerequisite to using ObjectBox in Go is the ObjectBox binary library \(.so, .dylib depending on your platform\) which actually implements the database functionality. 
+The main prerequisite to using ObjectBox in Go is the ObjectBox binary library \(.so, .dylib depending on your platform\) which actually implements the database functionality. 
+
+We are using CGO which requires you to have a C/C++ compiler, such as `gcc` or `clang`,  installed. You can try executing one of following commands in terminal to check if it's already available and working: `$CC --version` or `gcc --version` or `clang --version`. If any of the commands works fine \(no need for all of them to work\), you should be good to go. Otherwise, please `gcc` or `clang` according to the  instructions for your system \(e.g. `sudo apt install gcc` on Ubuntu\).
 
 ### Quick installation
 
@@ -57,7 +59,7 @@ A package dependency is set up automatically if you've used the "Quick installat
 
 ## Windows
 
-The main prerequisite to using ObjectBox in Go is the ObjectBox binary DLL which actually implements the database functionality. We are using `cgo` which requires you to have MinGW gcc in PATH, e. g. [http://tdm-gcc.tdragon.net/](http://tdm-gcc.tdragon.net/) - in case you don't have MinGW installed yet, please do so first.
+The main prerequisite to using ObjectBox in Go is the ObjectBox binary DLL which actually implements the database functionality. We are using CGO which requires you to have MinGW `gcc` in PATH, e. g. [http://tdm-gcc.tdragon.net/](http://tdm-gcc.tdragon.net/) - in case you don't have MinGW installed yet, please do so first.
 
 ### **Quick installation**
 
