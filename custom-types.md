@@ -67,7 +67,7 @@ func timeInt64ToDatabaseValue(goValue time.Time) (int64, error) {
 Actually this converter for `time.Time` is already part of the `objectbox` package and used automatically when you mark a `time.Time` property with ```objectbox:"date"`.`` 
 {% endhint %}
 
-## Queries on custom types
+## Queries on custom types <a id="queries"></a>
 
 When you use a converter, the actual value stored in the database is the result of the `...ToDatabaseValue()` call, e.g. `int64` in the previous example. Therefore, when you want to compare the stored data in a query condition, make sure you use the converted value as well:
 
