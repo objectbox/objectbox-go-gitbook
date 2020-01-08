@@ -37,26 +37,53 @@ In the entity definition above, we instruct ObjectBox to store the `DateCreated`
 
 ```go
 // from DB value to runtime value
-func timeInt64ToEntityProperty(dbValue int64) time.Time
+func timeInt64ToEntityProperty(dbValue int64) (time.Time, error)
 
 // from runtime value to DB value
-func timeInt64ToDatabaseValue(goValue time.Time) int64
+func timeInt64ToDatabaseValue(goValue time.Time) (int64, error)
 ```
 
 Just to complete the example, those functions could be implemented like this:
 
 ```go
 // converts Unix timestamp in milliseconds (ObjectBox date field format) to time.Time
-func timeInt64ToEntityProperty(dbValue int64) (goValue time.Time) {
-	return time.Unix(dbValue/1000, dbValue%1000*1000000).UTC()
+func timeInt64ToEntityProperty(dbValue int64) (goValue time.Time, err error) {
+	err = goValue.UnmarshalText([]byte(dbValue))
+	if err != nil {
+		err = fmt.Errorf("error unmarshalling time %v: %v", dbValue, err)
+	}
+	return goValue, err
 }
 
 // converts time.Time to Unix timestamp in milliseconds 
 // i. e. internal format expected by ObjectBox on a date field
-func timeInt64ToDatabaseValue(goValue time.Time) int64 {
+func timeInt64ToDatabaseValue(goValue time.Time) (int64, error) {
 	var ms = int64(goValue.Nanosecond()) / 1000000
-	return goValue.Unix()*1000 + ms
+	return goValue.Unix()*1000 + ms, nil
 }
+```
+
+{% hint style="info" %}
+Actually this converter for `time.Time` is already part of the `objectbox` package and used automatically when you mark a `time.Time` property with ```objectbox:"date"`.`` 
+{% endhint %}
+
+## Queries on custom types
+
+When you use a converter, the actual value stored in the database is the result of the `...ToDatabaseValue()` call, e.g. `int64` in the previous example. Therefore, when you want to compare the stored data in a query condition, make sure you use the converted value as well:
+
+```go
+// Create
+id, _ := box.Put(&model.Task{
+	Text: "Buy milk",
+	DateCreated: time.Now().UTC()
+})
+
+// Query
+minTime, _ := time.Parse(time.RFC3339, "2018-11-28T12:16:42.145+07:00")
+minTimeInt64, _ := objectbox.TimeInt64ConvertToDatabaseValue(minTime)
+tasks, _ := box.Query(
+	model.Task_.DateCreated.GreaterThan(minTimeInt64)
+).Find()
 ```
 
 ## Things to look out for
