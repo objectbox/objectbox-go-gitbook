@@ -8,7 +8,7 @@ Your feedback on ObjectBox and this documentation is very welcome. Use the "Was 
 
 ### v1.1.1 \(2020-02-14\)
 
-* Use temp directories in tests \(instead of the repo/module directory\), to prevent failure in recent Go versions checking out modules with read-only access.
+* use temp directories in tests to prevent failure in recent Go versions checking-out modules as read-only.
 
 ### v1.1.0 \(2019-12-16\)
 
