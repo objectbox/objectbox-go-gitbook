@@ -6,6 +6,10 @@ Your feedback on ObjectBox and this documentation is very welcome. Use the "Was 
 
 ## Changelog
 
+### v1.1.1 \(2020-02-14\)
+
+* Use temp directories in tests \(instead of the repo/module directory\), to prevent failure in recent Go versions checking out modules with read-only access.
+
 ### v1.1.0 \(2019-12-16\)
 
 * add Box `Insert` and `Update` methods with stricter semantics than `Put`
