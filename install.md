@@ -10,6 +10,10 @@ The main prerequisite to using ObjectBox in Go is the ObjectBox binary library \
 
 We are using CGO which requires you to have a C/C++ compiler, such as `gcc` or `clang`,  installed. You can try executing one of following commands in terminal to check if it's already available and working: `$CC --version` or `gcc --version` or `clang --version`. If any of the commands works fine \(no need for all of them to work\), you should be good to go. Otherwise, please `gcc` or `clang` according to the  instructions for your system \(e.g. `sudo apt install gcc` on Ubuntu\).
 
+{% hint style="warning" %}
+There's currently a known issue on some ARM platforms, see [Raspberry Pi 3 & 4 fallback](install.md#raspberry-pi-3-and-4-fallback).
+{% endhint %}
+
 ### Quick installation
 
 The fastest way to install is by using our installation script. Execute the following command in your project directory. If that doesn't work for you, you can skip to the manual installation bellow.
@@ -56,6 +60,18 @@ A package dependency is set up automatically if you've used the "Quick installat
 {% endhint %}
 
 {% page-ref page="getting-started.md" %}
+
+### Raspberry Pi 3 & 4 fallback
+
+You may encounter an issue on some ARM platforms \(seen this on Raspberry Pi 3 & 4\) with the  default native library installed by the script. Also, the issue seems to only occur when running natively, not inside docker.
+
+You can check your installation to see if you encounter crashes \(SIGBUS/SIGSEGV\) by executing `go test github.com/objectbox/objectbox-go/...` 
+
+As a workaround, you can install an ARMv6 version of the native library \(instead of the default ARMv7 the script picks\) using the same script as in the manual installation, just changing the arguments:
+
+```bash
+./download.sh 0.8.1 testing Linux armv6
+```
 
 ## Windows
 

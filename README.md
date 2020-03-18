@@ -6,9 +6,13 @@ Your feedback on ObjectBox and this documentation is very welcome. Use the "Was 
 
 ## Changelog
 
+### v1.1.2 \(2020-03-18\)
+
+* ensure Query finalizer is only executed by Go GC after a native call finishes
+
 ### v1.1.1 \(2020-02-14\)
 
-* use temp directories in tests to prevent failure in recent Go versions checking-out modules as read-only.
+* use temp directories in tests to prevent failure in recent Go versions checking-out modules as read-only
 
 ### v1.1.0 \(2019-12-16\)
 
