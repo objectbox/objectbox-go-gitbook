@@ -63,7 +63,7 @@ A package dependency is set up automatically if you've used the "Quick installat
 
 ### Raspberry Pi 3 & 4 fallback
 
-You may encounter an issue on some ARM platforms \(seen this on Raspberry Pi 3 & 4\) with the  default native library installed by the script. Also, the issue seems to only occur when running natively, not inside docker.
+You may encounter an issue on some ARM platforms \(seen this on Raspberry Pi 3 & 4\) with the default native library installed by the script. Also, the issue seems to only occur when running natively, not inside docker.
 
 You can check your installation to see if you encounter crashes \(SIGBUS/SIGSEGV\) by executing `go test github.com/objectbox/objectbox-go/...` 
 
