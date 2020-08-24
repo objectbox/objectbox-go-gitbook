@@ -1,5 +1,6 @@
 ---
 description: >-
+  ObjectBox database provides builder APIs for creating ObjectBox db Go queries.
   ObjectBox queries help you quickly find objects matching criteria you've
   specified.
 ---
