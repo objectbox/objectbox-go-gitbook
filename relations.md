@@ -1,3 +1,9 @@
+---
+description: >-
+  ObjectBox db supports relations. Learn all about To-One, To-Many, One-to-Many,
+  Many-to-Many relations and lazy loading.
+---
+
 # Relations
 
 Objects may reference other objects, for example using a simple reference or a list of objects. In database terms, we call those references **relations**. The object defining the relation we call the **source** object, the referenced object we call **target** object. So the relation has a direction.
