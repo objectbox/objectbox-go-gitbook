@@ -1,7 +1,5 @@
 ---
-description: >-
-  ObjectBox db FAQ for Golang. General ObjectBox db FAQ can be found here. And
-  language specific ones here:
+description: ObjectBox db FAQ for Golang.
 ---
 
 # FAQ
