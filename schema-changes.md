@@ -1,7 +1,8 @@
 ---
 description: >-
   ObjectBox manages its data model (schema) mostly automatically. ObjectBox db
-  suppoerts automatic schema migration.
+  supports automatic schema migration to make data persistence as easy as
+  possible for application developers.
 ---
 
 # Schema changes
