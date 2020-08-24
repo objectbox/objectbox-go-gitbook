@@ -1,6 +1,10 @@
+---
+description: ObjectBox manages its data model (schema) mostly automatically.
+---
+
 # Schema changes
 
-ObjectBox manages its data model \(schema\) mostly automatically. The data model is defined by the entity structs you define. When you **add or remove** entities or properties of your entities, **ObjectBox takes care** of those changes without any further action from you.
+The data model is defined by the entity structs you define. When you **add or remove** entities or properties of your entities, **ObjectBox takes care** of those changes without any further action from you.
 
 For other changes like **renaming or changing the type**, ObjectBox needs **extra information** to make things unambiguous. This works using unique identifiers \(UIDs\) specified by the [uid annotation](entity-annotations.md#uid), as we will see below.
 
