@@ -1,8 +1,8 @@
 ---
 description: >-
   ObjectBox db supports relations. Learn all about To-One, To-Many, One-to-Many,
-  Many-to-Many relations and lazy loading. Relations are initialized eagerly by
-  default.
+  Many-to-Many relations and lazy loading for ObjectBox Go. Relations are
+  initialized eagerly by default.
 ---
 
 # Relations
