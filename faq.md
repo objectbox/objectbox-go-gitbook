@@ -1,5 +1,7 @@
 ---
-description: ObjectBox db FAQ for Golang.
+description: >-
+  ObjectBox db FAQ for Golang. Find answers to: How is ObjectBox different from
+  BoltDB (bolt/bbolt) or Badger?
 ---
 
 # FAQ
