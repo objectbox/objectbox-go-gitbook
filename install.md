@@ -1,3 +1,9 @@
+---
+description: >-
+  ObjectBox Go is easy to install. Just follow this steps and enjoy the ease of
+  use and speed of ObjectBox database in your next IoT application.
+---
+
 # Installation
 
 We're trying to make the installation experience smooth for everyone. In case you're getting stuck or are finding some steps hard to follow, please reach out to us, e.g. by creating a [GitHub issue](https://github.com/objectbox/objectbox-go/issues) or through our [Contact form](https://objectbox.io/contact/). Thanks!
