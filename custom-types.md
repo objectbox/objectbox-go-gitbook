@@ -1,7 +1,7 @@
 ---
 description: >-
-  Sometimes, you need to store a type that can't be handled out of the box. For
-  such cases, you can define a custom converter (a pair of functions) that take
+  Sometimes, you need to store a type that can't be handled out of the box.
+  ObjectBox let's you define a custom converter (a pair of functions) that takes
   care of encoding & decoding properties.
 ---
 
