@@ -1,5 +1,7 @@
 ---
-description: ObjectBox manages its data model (schema) mostly automatically.
+description: >-
+  ObjectBox manages its data model (schema) mostly automatically. ObjectBox db
+  suppoerts automatic schema migration.
 ---
 
 # Schema changes
