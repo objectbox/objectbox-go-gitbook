@@ -1,3 +1,10 @@
+---
+description: >-
+  ObjectBox is designed for high performance on restricted devices and will give
+  you instant speed on all CRUD operations. It is easy to use ObjectBox db; just
+  follow this tutorial to get started.
+---
+
 # Getting started
 
 ## Creating an Entity

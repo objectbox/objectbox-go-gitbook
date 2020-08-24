@@ -1,3 +1,10 @@
+---
+description: >-
+  ObjectBox is a fully transactional Go database and ACID compliant. Based on
+  objects, ObjectBox gives you high performance without sacrificing atomicity,
+  consistency, isolation, durability.
+---
+
 # Transactions
 
 ## Basics
