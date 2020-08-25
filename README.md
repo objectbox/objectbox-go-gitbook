@@ -11,6 +11,12 @@ Your feedback on ObjectBox and this documentation is very welcome. Use the "Was 
 
 ## Changelog
 
+### v1.2.0 \(2020-08-25\)
+
+* update to objectbox-c v0.10.0 with latest improvements and fixes
+* support comma in addition to space as an annotation separator
+* extract code generation into a separate module/project [objectbox-generator](github.com/objectbox/objectbox-generator) and depend on it to preserve existing `go:generate` annotations
+
 ### v1.1.2 \(2020-03-18\)
 
 * ensure Query finalizer is only executed by Go GC after a native call finishes
