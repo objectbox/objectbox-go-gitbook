@@ -1,8 +1,12 @@
+---
+description: How to persist objects with entity annotations in ObjectBox Go.
+---
+
 # Entity Annotations
 
 ## ObjectBox - Database Persistence with Entity Annotations <a id="objectbox-database-persistence-with-entity-annotations"></a>
 
-ObjectBox is a database that persists objects. For a clear distinction, we sometimes call those persistable objects **entities**. To let ObjectBox know which structs are entities you add go:generate command to their source file and annotations \(Go tags\) to some fields. Then ObjectBox can do its magic with your entities.
+ObjectBox is a database that persists objects.  Sometimes we call those persist-able objects "**entities**" to distinguish from non-persisted objects. To let ObjectBox know which structs are entities you add go:generate command to their source file and annotations \(Go tags\) to some fields. Then ObjectBox can do its magic with your entities.
 
 Here is an example:
 
