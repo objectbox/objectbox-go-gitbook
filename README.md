@@ -1,13 +1,12 @@
 ---
 description: >-
-  ObjectBox Go is designed to be the easiest and fastest data storage solution
-  for your application. Optimized for Edge Computing. This is the ObjectBox
-  database Go API documentation.
+  ObjectBox Go is designed to be the easiest and fastest database for your Go
+  application. Learn how to use ObjectBox APIs in Go.
 ---
 
-# Database for Go
+# Golang Database
 
-Your feedback on ObjectBox and this documentation is very welcome. Use the "Was this page helpful?" smiley at the end of each page or send us your comments to contact\[at\]objectbox.io - thank you! :\)
+We welcome your feedback on ObjectBox Go and this documentation. Use the "Was this page helpful?" smiley at the end of each page or send us your comments to contact\[at\]objectbox.io - thank you! :\)
 
 ## Changelog
 

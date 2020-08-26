@@ -1,6 +1,6 @@
 # Table of contents
 
-* [Database for Go](README.md)
+* [Golang Database](README.md)
 * [Installation](install.md)
 * [Getting started](getting-started.md)
 * [Transactions](transactions.md)
