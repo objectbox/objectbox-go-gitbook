@@ -1,6 +1,6 @@
 # Table of contents
 
-* [ObjectBox Go](README.md)
+* [Database for Go](README.md)
 * [Installation](install.md)
 * [Getting started](getting-started.md)
 * [Transactions](transactions.md)

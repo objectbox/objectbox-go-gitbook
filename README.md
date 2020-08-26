@@ -5,7 +5,7 @@ description: >-
   database Go API documentation.
 ---
 
-# ObjectBox Go
+# Database for Go
 
 Your feedback on ObjectBox and this documentation is very welcome. Use the "Was this page helpful?" smiley at the end of each page or send us your comments to contact\[at\]objectbox.io - thank you! :\)
 
