@@ -5,7 +5,7 @@ description: >-
   just follow this tutorial to get started.
 ---
 
-# Getting started
+# Get started on-the-go
 
 ## Creating an Entity
 

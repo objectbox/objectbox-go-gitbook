@@ -2,7 +2,7 @@
 
 * [Golang Database](README.md)
 * [Installation](install.md)
-* [Getting started](getting-started.md)
+* [Get started on-the-go](getting-started.md)
 * [Transactions](transactions.md)
 * [Entity Annotations](entity-annotations.md)
 * [Queries](queries.md)
