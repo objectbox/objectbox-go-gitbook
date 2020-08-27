@@ -17,7 +17,7 @@ You may not notice it, but almost all interactions with ObjectBox involve transa
 
 All ObjectBox operations run in implicit transactions – unless an explicit transaction is in progress. In the latter case, multiple operations share the \(explicit\) transaction. In other words, with explicit transactions you control the transaction boundary. Doing so can greatly improve efficiency and consistency in your app.
 
-The `ObjectBox::RunInReadTx()` and `ObjectBox::RunInWriteTx()` take a function as and argument and run it inside a transaction \(read-only or a write transaction, respectively\).
+To start a transaction explicitly, call `ObjectBox::RunInReadTx()` and `ObjectBox::RunInWriteTx()` passing the code you want to run inside a transaction \(read-only or a write transaction, respectively\).
 
 There are multiple advantages of explicit transactions:
 
