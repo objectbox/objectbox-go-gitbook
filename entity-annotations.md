@@ -54,6 +54,10 @@ type Task struct {
 }
 ```
 
+### assignable - self-assigned IDs
+
+When you put a new object you do not assign an ID. By default **IDs for new objects are assigned by ObjectBox**. If you **need to assign IDs by yourself**, use the `objectbox:"id(assignable)"` annotation. This will allow putting an object with any valid ID. You can still set the ID to zero to let ObjectBox auto-assign a new ID.
+
 ## index - property Indexes <a id="basic-annotations-for-entity-properties"></a>
 
 Annotate a property with \`objectbox:"index"\` to create a database index for the corresponding database column. This can improve performance when querying for that property.
