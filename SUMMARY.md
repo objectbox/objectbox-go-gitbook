@@ -12,5 +12,5 @@
 * [Sync](https://objectbox.io/sync/)
 * [FAQ](faq.md)
 * [ObjectBox GoDoc](https://godoc.org/github.com/objectbox/objectbox-go/objectbox)
-* [ObjectBox db for C++](https://app.gitbook.com/@objectbox/s/objectbox-cpp/)
+* [ObjectBox for C/C++](https://app.gitbook.com/@objectbox/s/objectbox-cpp/)
 

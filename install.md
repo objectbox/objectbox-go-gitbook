@@ -24,9 +24,19 @@ There's currently a known issue on some ARM platforms, see [Raspberry Pi 3 & 4 f
 
 The fastest way to install is by using our installation script. Execute the following command in your project directory. If that doesn't work for you, you can skip to the manual installation bellow.
 
+{% tabs %}
+{% tab title="ObjectBox" %}
 ```bash
-bash <(curl -s https://raw.githubusercontent.com/objectbox/objectbox-go/master/install.sh)
+bash <(curl -s https://raw.githubusercontent.com/objectbox/objectbox-go/main/install.sh)
 ```
+{% endtab %}
+
+{% tab title="ObjectBox Sync" %}
+```
+bash <(curl -s https://raw.githubusercontent.com/objectbox/objectbox-go/main/install.sh) --sync
+```
+{% endtab %}
+{% endtabs %}
 
 {% page-ref page="getting-started.md" %}
 
@@ -37,7 +47,10 @@ You can run the following`download.sh` script \(press Y to install the library t
 
 ```bash
 mkdir objectboxlib && cd objectboxlib
-bash <(curl -s https://raw.githubusercontent.com/objectbox/objectbox-c/master/download.sh) 0.8.1
+bash <(curl -s https://raw.githubusercontent.com/objectbox/objectbox-c/main/download.sh) 0.13.0
+
+// Or for ObjectBox Sync:
+bash <(curl -s https://raw.githubusercontent.com/objectbox/objectbox-c/main/download.sh) --sync 0.13.0
 ```
 
 #### Go package dependency 
@@ -76,7 +89,7 @@ You can check your installation to see if you encounter crashes \(SIGBUS/SIGSEGV
 As a workaround, you can install an ARMv6 version of the native library \(instead of the default ARMv7 the script picks\) using the same script as in the manual installation, just changing the arguments:
 
 ```bash
-./download.sh 0.8.1 testing Linux armv6
+./download.sh 0.13.0 Linux armv6
 ```
 
 ## Windows
@@ -95,7 +108,7 @@ You can use the following PowerShell script to help you with installation of the
 
 In case you couldn't install fully using the script \(e.g. it didn't find your MinGW installation\), you can try to finish the installation manually
 
-1. In order to compile your program, you need to copy the downloaded`download/bjectbox.dll` to the MinGW library directory, e. g. `C:\TDM-GCC-64\lib`
+1. In order to compile your program, you need to copy the downloaded`download/objectbox.dll` to the MinGW library directory, e. g. `C:\TDM-GCC-64\lib`
 2. To run the program, you either need to have the `objectbox.dll` library in the same folder as the compiled program, have its location \(e. g. `C:\TDM-GCC-64\lib`in `Path` environment variable\), or copy it to the system library directory `c:\Windows\System32`
 
 ### Go package dependency 

@@ -10,6 +10,15 @@ We welcome your feedback on ObjectBox Go and this documentation. Use the "Was th
 
 ## Changelog
 
+### v1.3.0 \(2021-03-19\)
+
+* add [ObjectBox Sync](https://objectbox.io/sync/) client support
+* add self-assignable IDs: `objectbox:"id(assignable)"`
+* add query `GreaterOrEqual`/`LessOrEqual` for ints and floats
+* update objectbox-generator to v0.12.0
+* update objectbox-c to v 0.13.0
+* fix compiling on old gcc \(e.g. the one in CentOS 7\)
+
 ### v1.2.0 \(2020-08-25\)
 
 * update to objectbox-c v0.10.0 with latest improvements and fixes
