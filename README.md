@@ -10,6 +10,13 @@ We welcome your feedback on ObjectBox Go and this documentation. Use the "Was th
 
 ## Changelog
 
+### v1.4.0 \(2021-04-01\)
+
+* add TimeSeries model definition support using `id-companion` and `date-nano` annotations
+* avoid `time.Duration.Milliseconds()` not available on old Go Versions
+* `NewSyncClient` - flip return values to align with the other "constructors"
+* add `NanoTimeInt64*` built-in converters
+
 ### v1.3.0 \(2021-03-19\)
 
 * add [ObjectBox Sync](https://objectbox.io/sync/) client support

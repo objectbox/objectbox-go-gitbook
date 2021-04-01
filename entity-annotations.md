@@ -16,8 +16,8 @@ Here is an example:
 type Task struct {
 	Id           uint64
 	Text         string
-	DateCreated  int64
-	DateFinished int64
+	DateCreated  time.Time
+	DateFinished time.Time
 }
 ```
 
@@ -167,6 +167,14 @@ Because ObjectBox stores dates internally as Unix timestamps with **millisecond*
 
 If you require greater precision, define  your own converter with any built-in supported type that can accommodate your storage format \(e.g. `int`, `string`, `[]byte`, etc.\).
 {% endhint %}
+
+### date-nano
+
+Similar to `date` but storing the timestamp as nanoseconds since UNIX epoch.
+
+### id-companion
+
+Use on a `date-nano` field to specify a TimeSeries companion property.
 
 ### lazy
 
