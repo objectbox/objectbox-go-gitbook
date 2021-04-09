@@ -174,7 +174,7 @@ Similar to `date` but storing the timestamp as nanoseconds since UNIX epoch.
 
 ### id-companion
 
-Use on a `date-nano` field to specify a TimeSeries companion property.
+Use on a `date` or `date-nano` field to specify a Time Series companion property. For more information about how to use ObjectBox TS \(Time Series\), please refer to the [C++ TS APIs](https://cpp.objectbox.io/time-series-data) for now.
 
 ### lazy
 
