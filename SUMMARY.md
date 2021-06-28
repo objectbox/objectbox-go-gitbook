@@ -11,6 +11,6 @@
 * [Relations](relations.md)
 * [Sync](https://objectbox.io/sync/)
 * [FAQ](faq.md)
-* [ObjectBox GoDoc](https://godoc.org/github.com/objectbox/objectbox-go/objectbox)
+* [ObjectBox Golang Docs](https://godoc.org/github.com/objectbox/objectbox-go/objectbox)
 * [ObjectBox C/C++ Docs](https://app.gitbook.com/@objectbox/s/objectbox-cpp/)
 
