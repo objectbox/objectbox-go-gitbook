@@ -1,6 +1,6 @@
 ---
 description: >-
-  ObjectBox db FAQ for Golang. Find answers to: How is ObjectBox different from
+  ObjectBox DB FAQ for Golang. Find answers to: How is ObjectBox different from
   BoltDB (bolt/bbolt) or Badger? Couldn't I just use JSON to store data? and
   many more questions.
 ---
