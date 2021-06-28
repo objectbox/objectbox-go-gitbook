@@ -1,7 +1,7 @@
 ---
 description: >-
   ObjectBox Go is easy to install. Just follow this steps and enjoy the ease of
-  use and speed of ObjectBox database in your next Golang application.
+  use and speed of the ObjectBox NoSQL database in your next Golang application.
 ---
 
 # Installation
