@@ -1,8 +1,8 @@
 ---
 description: >-
-  ObjectBox Go is a NoSQL database for object persistence. It is designed to
-  give you high performance and easy native Go APIs. Learn how to use ObjectBox
-  APIs in Go.
+  ObjectBox Go is a lean NoSQL Golang database for persisting objects. It is
+  designed to give you high performance and easy native Go APIs on any
+  POSIX-system and embedded devices.
 ---
 
 # Golang Database
