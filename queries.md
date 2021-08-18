@@ -191,7 +191,7 @@ var addressesSesameStreetWithElmo = query.Find()
 
 ## PropertyQuery
 
-If you only want to return the values of a particular property and not a list of full objects you can use a [PropertyQuery](http://objectbox.io/files/objectbox-java/current/io/objectbox/query/PropertyQuery.html). After building a query, simply call `query.Property(Property)` . For example, instead of getting all Users, to just get their email addresses:
+If you only want to return the values of a particular property and not a list of full objects you can use a [PropertyQuery](https://pkg.go.dev/github.com/objectbox/objectbox-go/objectbox#PropertyQuery). After building a query, simply call `query.Property(Property)` . For example, instead of getting all Users, to just get their email addresses:
 
 ```go
 query := userBox.Query()
