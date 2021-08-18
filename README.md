@@ -14,7 +14,7 @@ We welcome your feedback on ObjectBox Go and this documentation. Use the "Was th
 ### v1.5.0 \(2021-08-18\)
 
 * update objectbox-c to v0.14.0
-* add support for property queries
+* add [PropertyQuery](queries.md#propertyquery) support
 
 ### v1.4.0 \(2021-04-01\)
 
