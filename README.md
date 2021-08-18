@@ -11,6 +11,11 @@ We welcome your feedback on ObjectBox Go and this documentation. Use the "Was th
 
 ## Changelog
 
+### v1.5.0 \(2021-08-18\)
+
+* update objectbox-c to v0.14.0
+* add support for property queries
+
 ### v1.4.0 \(2021-04-01\)
 
 * add TimeSeries model definition support using `id-companion` and `date-nano` annotations

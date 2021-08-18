@@ -181,17 +181,59 @@ What if we want to get a list of `Address` instead of `Person`? No problem, link
 
 ```go
 // get all Address objects on "Sesame Street" linked from a Person named "Elmo"
-val builder = box.query().equal(Address_.street, "Sesame Street")
+val builder = box.query().equal(Address_.Street, "Sesame Street")
 var query = BoxForAddress(ob).Query(
     Address_.Street.Equals("Sesame Street", true),
-	Person_.Address.Link(Person_.name.Equals("Elmo", true)),
+	Person_.Address.Link(Person_.Name.Equals("Elmo", true)),
 )
 var addressesSesameStreetWithElmo = query.Find()
 ```
 
-### More to come <a id="ordering-results"></a>
+## PropertyQuery
 
-ObjectBox core can do much more with the queries, such as property queries, aliases, etc. These are not yet supported by our Go API, but you can take a peek at [https://docs.objectbox.io/queries](https://docs.objectbox.io/queries) to get the idea what's coming in the future releases. 
+If you only want to return the values of a particular property and not a list of full objects you can use a [PropertyQuery](http://objectbox.io/files/objectbox-java/current/io/objectbox/query/PropertyQuery.html). After building a query, simply call `query.Property(Property)` . For example, instead of getting all Users, to just get their email addresses:
 
-Feel free to open a [feature request on GitHub](https://github.com/objectbox/objectbox-go/issues) if you have an idea or a proposal.
+```go
+query := userBox.Query()
+emails, err := query.Property(User_.Email).FindStrings(nil)
+```
+
+{% hint style="warning" %}
+The returned items are **not in any particular order**, even if you did specify an order when building the query.
+{% endhint %}
+
+### Handling null values
+
+The argument to `FindStrings()` \(and similar for other types\) is a value to be used if the given field is `nil` in the database. **By default, i.e. when you pass \`nil\` as the argument, these values are not returned.** However, you can specify a replacement value to return if a property is null:
+
+```go
+// includes 'unknown' instead of each null email
+emails, err := userBox.Query().Property(User_.Email).FindStrings("unknown")
+```
+
+### Distinct values
+
+The property query can also only return distinct values:
+
+```go
+pq := userBox.Query().Property(User_.FirstName)
+
+// returns ['joe'] because by default, the case of strings is ignored.
+err := pq.Distinct(true) // args: Distinct(value bool)
+names := pq.FindStrings(nil)
+
+// returns ['Joe', 'joe', 'JOE']
+pq.DistinctString(true, true) // args: DistinctString(value, caseSensitive bool)
+names = pq.FindStrings(nil)
+```
+
+### Aggregating values
+
+Property queries also offer aggregate functions to directly calculate the minimum, maximum, average, sum and count of all found \(non-null\) values:
+
+* `Min()` / `MinDouble()`: Finds the minimum value for the given property over all objects matching the query.
+* `Max()` / `MaxFloat64()`: Finds the maximum value.
+* `Sum()` / `SumFloat64()`: Calculates the sum of all values. _Note: the integer version detects overflows and returns an error in that case._
+* `Average()` : Calculates the average \(always a `float64`\) of all values.
+* `Count()`: returns the number of results. This is faster than finding and getting the length of the result array. Can be combined with `Distinct()` to count only the number of distinct values.
 
