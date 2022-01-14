@@ -28,7 +28,7 @@ ObjectBox is not an in-memory database. The latter have high RAM requirements be
 
 ## macOS: I'm getting "unexpected  signal" crashes when turning on "-trace"
 
-We saw this happening using Go via `brew` using the latest Go version from the official download page resolved the issue.
+We saw this happening using Go via `brew`. Using the latest Go version from the official download page resolved the issue.
 
 ## I'm getting "exit status 3221225781" on Windows
 
