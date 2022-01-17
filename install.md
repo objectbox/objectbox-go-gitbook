@@ -11,11 +11,11 @@ We're trying to make the installation experience smooth for everyone. In case yo
 
 ## Linux/macOS
 
-This section describe the installation on Linux or macOS, if you're using Windows, please skip to the [Installation on Windows](install.md#windows) section. 
+This section describe the installation on Linux or macOS, if you're using Windows, please skip to the [Installation on Windows](install.md#windows) section.&#x20;
 
-The main prerequisite to using ObjectBox in Go is the ObjectBox binary library \(.so, .dylib depending on your platform\) which actually implements the database functionality. 
+The main prerequisite to using ObjectBox in Go is the ObjectBox binary library (.so, .dylib depending on your platform) which actually implements the database functionality.&#x20;
 
-We are using CGO which requires you to have a C/C++ compiler, such as `gcc` or `clang`,  installed. You can try executing one of following commands in terminal to check if it's already available and working: `$CC --version` or `gcc --version` or `clang --version`. If any of the commands works fine \(no need for all of them to work\), you should be good to go. Otherwise, please `gcc` or `clang` according to the  instructions for your system \(e.g. `sudo apt install gcc` on Ubuntu\).
+We are using CGO which requires you to have a C/C++ compiler, such as `gcc` or `clang`,  installed. You can try executing one of following commands in terminal to check if it's already available and working: `$CC --version` or `gcc --version` or `clang --version`. If any of the commands works fine (no need for all of them to work), you should be good to go. Otherwise, please `gcc` or `clang` according to the  instructions for your system (e.g. `sudo apt install gcc` on Ubuntu).
 
 {% hint style="warning" %}
 There's currently a known issue on some ARM platforms, see [Raspberry Pi 3 & 4 fallback](install.md#raspberry-pi-3-and-4-fallback).
@@ -39,12 +39,14 @@ bash <(curl -s https://raw.githubusercontent.com/objectbox/objectbox-go/main/ins
 {% endtab %}
 {% endtabs %}
 
-{% page-ref page="getting-started.md" %}
+{% content-ref url="getting-started.md" %}
+[getting-started.md](getting-started.md)
+{% endcontent-ref %}
 
 ### Manual installation
 
-**C binary library**  
-You can run the following`download.sh` script \(press Y to install the library to a system-wide folder when it asks you\). you can remove the temporary "objectboxlib" directory created by this step afterwards.
+**C binary library**\
+****You can run the following`download.sh` script (press Y to install the library to a system-wide folder when it asks you). you can remove the temporary "objectboxlib" directory created by this step afterwards.
 
 ```bash
 mkdir objectboxlib && cd objectboxlib
@@ -54,7 +56,7 @@ bash <(curl -s https://raw.githubusercontent.com/objectbox/objectbox-c/main/down
 bash <(curl -s https://raw.githubusercontent.com/objectbox/objectbox-c/main/download.sh) --sync 0.13.0
 ```
 
-#### Go package dependency 
+#### Go package dependency&#x20;
 
 {% tabs %}
 {% tab title="Go modules based project" %}
@@ -79,15 +81,17 @@ go get -u github.com/google/flatbuffers/go
 A package dependency is set up automatically if you've used the "Quick installation" method using the `install.sh` script
 {% endhint %}
 
-{% page-ref page="getting-started.md" %}
+{% content-ref url="getting-started.md" %}
+[getting-started.md](getting-started.md)
+{% endcontent-ref %}
 
 ### Raspberry Pi 3 & 4 fallback
 
-You may encounter an issue on some ARM platforms \(seen this on Raspberry Pi 3 & 4\) with the default native library installed by the script. Also, the issue seems to only occur when running natively, not inside docker.
+You may encounter an issue on some ARM platforms (seen this on Raspberry Pi 3 & 4) with the default native library installed by the script. Also, the issue seems to only occur when running natively, not inside docker.
 
-You can check your installation to see if you encounter crashes \(SIGBUS/SIGSEGV\) by executing `go test github.com/objectbox/objectbox-go/...` 
+You can check your installation to see if you encounter crashes (SIGBUS/SIGSEGV) by executing `go test github.com/objectbox/objectbox-go/...`&#x20;
 
-As a workaround, you can install an ARMv6 version of the native library \(instead of the default ARMv7 the script picks\) using the same script as in the manual installation, just changing the arguments:
+As a workaround, you can install an ARMv6 version of the native library (instead of the default ARMv7 the script picks) using the same script as in the manual installation, just changing the arguments:
 
 ```bash
 ./download.sh 0.13.0 Linux armv6
@@ -95,24 +99,24 @@ As a workaround, you can install an ARMv6 version of the native library \(instea
 
 ## Windows
 
-The main prerequisite to using ObjectBox in Go is the ObjectBox binary DLL which actually implements the database functionality. We are using CGO which requires you to have MinGW `gcc` in PATH, e. g. [http://tdm-gcc.tdragon.net/](http://tdm-gcc.tdragon.net/) - in case you don't have MinGW installed yet, please do so first.
+The main prerequisite to using ObjectBox in Go is the ObjectBox binary DLL which actually implements the database functionality. We are using CGO which requires you to have MinGW `gcc` in PATH, e. g. [http://tdm-gcc.tdragon.net/](http://tdm-gcc.tdragon.net) - in case you don't have MinGW installed yet, please do so first.
 
 ### **Quick installation**
 
 You can use the following PowerShell script to help you with installation of the library to the right folders:
 
-* download the script: \(right click and "Save link as", the location doesn't matter\) [install.ps1](https://raw.githubusercontent.com/objectbox/objectbox-go/master/install.ps1)
+* download the script: (right click and "Save link as", the location doesn't matter) [install.ps1](https://raw.githubusercontent.com/objectbox/objectbox-go/main/install.ps1)
 * run the script - either double click or right click and "Run in PowerShell" - depends on your settings.
 * the script will guide you through the installation steps.
 
 ### **Manual installation**
 
-In case you couldn't install fully using the script \(e.g. it didn't find your MinGW installation\), you can try to finish the installation manually
+In case you couldn't install fully using the script (e.g. it didn't find your MinGW installation), you can try to finish the installation manually
 
 1. In order to compile your program, you need to copy the downloaded`download/objectbox.dll` to the MinGW library directory, e. g. `C:\TDM-GCC-64\lib`
-2. To run the program, you either need to have the `objectbox.dll` library in the same folder as the compiled program, have its location \(e. g. `C:\TDM-GCC-64\lib`in `Path` environment variable\), or copy it to the system library directory `c:\Windows\System32`
+2. To run the program, you either need to have the `objectbox.dll` library in the same folder as the compiled program, have its location (e. g. `C:\TDM-GCC-64\lib`in `Path` environment variable), or copy it to the system library directory `c:\Windows\System32`
 
-### Go package dependency 
+### Go package dependency&#x20;
 
 {% tabs %}
 {% tab title="Go modules based project" %}
@@ -124,9 +128,10 @@ import "github.com/objectbox/objectbox-go/objectbox"
 {% endtab %}
 {% endtabs %}
 
-{% page-ref page="getting-started.md" %}
+{% content-ref url="getting-started.md" %}
+[getting-started.md](getting-started.md)
+{% endcontent-ref %}
 
 ### Distributing
 
 Don't forget to include the `objectbox.dll` with your program when distributing/packaging for installer. Having it in the same directory as your program binary should be enough.
-
