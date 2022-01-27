@@ -11,9 +11,14 @@ We welcome your feedback on ObjectBox Go and this documentation. Use the "Was th
 
 ## Changelog
 
+### v1.6.1 (2020-01-27)
+
+* Improved version check for the dynamically loaded C lib
+* Update to objectbox-c v0.15.1 which contains fixes and minor performance improvements
+
 ### v1.6.0 (2022-01-14)
 
-* update objectbox-c to v0.15.0
+* Update [objectbox-c to v0.15.0](https://cpp.objectbox.io/#v0.15.0-2021-12-09) bringing many improvements to Go
 
 ### v1.5.0 (2021-08-18)
 
