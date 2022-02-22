@@ -7,7 +7,11 @@ description: >-
 
 # Golang Database
 
-We welcome your feedback on ObjectBox Go and this documentation. Use the "Was this page helpful?" smiley at the end of each page or send us your comments to contact\[at]objectbox.io - thank you! :)
+Your opinion matters to us! To make ObjectBox better for our users, we have set up an [Anonymous Feedback Form](https://forms.gle/bdktGBUmL4m48ruj7). Please do fill this in (it only takes 2 minutes). Every response is highly appreciated.
+
+To rate this documentation, you can use the "Was this page helpful?" smiley at the end of each page.
+
+Otherwise, feel free to open an issue on GitHub (for [Java & Kotlin](https://github.com/objectbox/objectbox-java/issues/new/choose) or [Dart/Flutter](https://github.com/objectbox/objectbox-dart/issues/new/choose)) or send us your comments to contact\[at]objectbox.io - Thank you! - and if you like what you see, we also appreciate a shoutout :)
 
 ## Changelog
 
