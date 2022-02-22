@@ -9,8 +9,6 @@ description: >-
 
 We're trying to make the installation experience smooth for everyone. In case you're getting stuck or are finding some steps hard to follow, please reach out to us, e.g. by creating a [GitHub issue](https://github.com/objectbox/objectbox-go/issues) or through our [Contact form](https://objectbox.io/contact/). Thanks!
 
-Your opinion matters to us! To make ObjectBox better for our users, we have set up an [Anonymous Feedback Form](https://forms.gle/bdktGBUmL4m48ruj7). Please do fill this in if you have time (it only takes 2 minutes). Every response is highly appreciated.
-
 ## Linux/macOS
 
 This section describe the installation on Linux or macOS, if you're using Windows, please skip to the [Installation on Windows](install.md#windows) section.&#x20;
