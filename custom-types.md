@@ -21,9 +21,9 @@ float32, float64
 
 ## Defining a converter
 
-To add support for a custom type, you can map properties to one of the built-in types using a `converter` annotation. 
+To add support for a custom type, you can map properties to one of the built-in types using a `converter` annotation.&#x20;
 
-For example, you could define a color in your entity using a custom `Color` struct and map it to an `int32`. Or you can map the `time.Time` to an `int64`, though losing some precision - less than a millisecond, i. e. a thousandth of a second\):
+For example, you could define a color in your entity using a custom `Color` struct and map it to an `int32`. Or you can map the `time.Time` to an `int64`, though losing some precision - less than a millisecond, i. e. a thousandth of a second):
 
 ```go
 type Task struct {
@@ -33,7 +33,7 @@ type Task struct {
 }
 ```
 
-In the entity definition above, we instruct ObjectBox to store the `DateCreated` field as a `int64` while converting it to/from `time.Time` when using in the program. ObjectBox will generate a binding code that will call the following two functions \(both start with the prefix `timeInt64` specified above\):
+In the entity definition above, we instruct ObjectBox to store the `DateCreated` field as a `int64` while converting it to/from `time.Time` when using in the program. ObjectBox will generate a binding code that will call the following two functions (both start with the prefix `timeInt64` specified above):
 
 ```go
 // from DB value to runtime value
@@ -64,10 +64,10 @@ func timeInt64ToDatabaseValue(goValue time.Time) (int64, error) {
 ```
 
 {% hint style="info" %}
-Actually this converter for `time.Time` is already part of the `objectbox` package and used automatically when you mark a `time.Time` property with ```objectbox:"date"`.`` 
+Actually this converter for `time.Time` is already part of the `objectbox` package and used automatically when you mark a `time.Time` property with `` `objectbox:"date"`. ``&#x20;
 {% endhint %}
 
-## Queries on custom types <a id="queries"></a>
+## Queries on custom types <a href="#queries" id="queries"></a>
 
 When you use a converter, the actual value stored in the database is the result of the `...ToDatabaseValue()` call, e.g. `int64` in the previous example. Therefore, when you want to compare the stored data in a query condition, make sure you use the converted value as well:
 
@@ -88,9 +88,8 @@ tasks, _ := box.Query(
 
 ## Things to look out for
 
-You must **not interact with the database** \(such as using `Box` or `ObjectBox`\) inside the converter. The converter methods are called within a transaction, so for example getting or putting entities to a box will fail.
+You must **not interact with the database** (such as using `Box` or `ObjectBox`) inside the converter. The converter methods are called within a transaction, so for example getting or putting entities to a box will fail.
 
 Your converter implementation must be **thread safe** as it can be called from multiple go routines in parallel. Try to avoid using global variables.
 
 `Query` is unaware of custom types. You have to **use the primitive DB type for queries**.
-

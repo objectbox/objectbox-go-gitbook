@@ -9,7 +9,7 @@ description: >-
 
 ## Creating an Entity
 
-Using ObjectBox in your project is fairly straight-forward. 
+Using ObjectBox in your project is fairly straight-forward.&#x20;
 
 First of all, let's define an Entity which is just a `struct`. It could be located basically anywhere but to keep our project structure clean, let's have it in a `internal/model/task.go` i. e. `model` package.
 
@@ -29,13 +29,13 @@ type Task struct {
 {% endcode %}
 
 {% hint style="info" %}
-Note that `Id uint64` is recognized by ObjectBox to contain an ID field which gives us a direct access to the stored Tasks objects by their ID. 
+Note that `Id uint64` is recognized by ObjectBox to contain an ID field which gives us a direct access to the stored Tasks objects by their ID.&#x20;
 
-Alternatively if your ID field is named differently, you can annotate it with \`objectbox:"id"\`.  
+Alternatively if your ID field is named differently, you can annotate it with \`objectbox:"id"\`.\
 For more information see [Entity Annotations](entity-annotations.md).
 {% endhint %}
 
-Having the entity file, we can run bindings generator to get the necessary `task.obx.go` 
+Having the entity file, we can run bindings generator to get the necessary `task.obx.go`&#x20;
 
 ```bash
 cd my-project-dir
@@ -44,8 +44,8 @@ go generate ./...
 
 The generated bindings code has two main competencies:
 
-* provide Entity model \(schema\) to the ObjectBox
-* convert between internal object representation \(FlatBuffers\) and our struct `Task`
+* provide Entity model (schema) to the ObjectBox
+* convert between internal object representation (FlatBuffers) and our struct `Task`
 
 {% hint style="warning" %}
 Additionally to the `task.obx.go` there's an `objectbox-model.json` which holds information about the model and `objectbox-model.go` which defines a model initialization function. All these files should be committed in source control along with the rest of your code.
@@ -69,9 +69,9 @@ func initObjectBox() *objectbox.ObjectBox {
 
 ## Working with Object Boxes
 
-Bet you wondered where our name comes from :\)
+Bet you wondered where our name comes from :)
 
-From ObjectBox you vend Box instances to manage your entities. While you can have multiple Box instances of the same type \(for the same Entity\) "open" at once, it's usually preferable to just use one instance and pass it around your code. 
+From ObjectBox you vend Box instances to manage your entities. While you can have multiple Box instances of the same type (for the same Entity) "open" at once, it's usually preferable to just use one instance and pass it around your code.&#x20;
 
 {% code title="main.go" %}
 ```go
@@ -97,13 +97,13 @@ func main() {
 
 Wherever you have access to a Box, you can use it to persist objects and fetch objects from disk. **Boxes are thread safe.** Here are some of the basic operations:
 
-* **Put:** Persist an object, which may overwrite an existing object with the same ID. In other words, use `Put`to insert or update objects. When put succeeds, an ID will be assigned to the entity. 
-* **Get:** When you have an object's ID, you can get to the object very efficiently using `Get`.  It will return `nil` & error in case an error occurred and `nil` without any error if the object doesn't exist. To get all objects of a type, use `GetAll`which returns a slice. 
+* **Put:** Persist an object, which may overwrite an existing object with the same ID. In other words, use `Put`to insert or update objects. When put succeeds, an ID will be assigned to the entity.&#x20;
+* **Get:** When you have an object's ID, you can get to the object very efficiently using `Get`.  It will return `nil` & error in case an error occurred and `nil` without any error if the object doesn't exist.\
+  To get all objects of a type, use `GetAll`which returns a slice.&#x20;
 * **Remove:** Deletes a previously persisted object from its box. Use `RemoveAll` to delete all objects and empty the box.
 * **Count:** The number of objects stored in this box.
 
 ## Task-list example application
 
-To see it all put together, have a look at the Task-List application example in our git repository:  
+To see it all put together, have a look at the Task-List application example in our git repository:\
 [https://github.com/objectbox/objectbox-go/tree/main/examples](https://github.com/objectbox/objectbox-go/tree/main/examples)
-

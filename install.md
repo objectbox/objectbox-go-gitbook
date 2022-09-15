@@ -99,7 +99,7 @@ As a workaround, you can install an ARMv6 version of the native library (instead
 
 ## Windows
 
-The main prerequisite to using ObjectBox in Go is the ObjectBox binary DLL which actually implements the database functionality. We are using CGO which requires you to have MinGW `gcc` in PATH, e. g. [http://tdm-gcc.tdragon.net/](http://tdm-gcc.tdragon.net) - in case you don't have MinGW installed yet, please do so first.
+The main prerequisite to using ObjectBox in Go is the ObjectBox binary DLL which actually implements the database functionality. We are using CGO which requires you to have MinGW `gcc` in PATH, e. g. [http://tdm-gcc.tdragon.net/](http://tdm-gcc.tdragon.net/) - in case you don't have MinGW installed yet, please do so first.
 
 ### **Quick installation**
 

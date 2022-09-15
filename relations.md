@@ -9,15 +9,15 @@ description: >-
 
 Objects may reference other objects, for example using a simple reference or a list of objects. In database terms, we call those references **relations**. The object defining the relation we call the **source** object, the referenced object we call **target** object. So the relation has a direction.
 
-If there is one target object, we call the relation **to-one.** And if there can be multiple target objects, we call it **to-many**. 
+If there is one target object, we call the relation **to-one.** And if there can be multiple target objects, we call it **to-many**.&#x20;
 
 {% hint style="info" %}
-Relations are initialized eagerly by default - i.e. the targets are loaded & as soon as the source object is read from the database. Lazy/manual loading of to-many relations is possible, using an annotation. 
+Relations are initialized eagerly by default - i.e. the targets are loaded & as soon as the source object is read from the database. Lazy/manual loading of to-many relations is possible, using an annotation.&#x20;
 {% endhint %}
 
 ## To-One Relations
 
-![To-One Relations](.gitbook/assets/image.png)
+<figure><img src=".gitbook/assets/to-one-relations-2.png" alt="To-One-relations"><figcaption><p>To-One Relations</p></figcaption></figure>
 
 You define a to-one relation using \`link\` annotation on a field that is a pointer or value type of another entity. Consider the following example - the Order entity has a to-one relation to the Customer entity.
 
@@ -64,7 +64,7 @@ box.Put(&model.Order{
 ```
 {% endcode %}
 
-After the `box.Put` has been executed on the first order, the `customer.Id` would be `1` because we're using pointers \(`Customer *Customer` field\) so Put could update the variable when it has inserted the Customer. Note that this wouldn't be possible if we were using copies \(`Customer Customer` field\) and in that case you should insert the customer manually into it's box first \(or use an existing customer selected from the database\).
+After the `box.Put` has been executed on the first order, the `customer.Id` would be `1` because we're using pointers (`Customer *Customer` field) so Put could update the variable when it has inserted the Customer. Note that this wouldn't be possible if we were using copies (`Customer Customer` field) and in that case you should insert the customer manually into it's box first (or use an existing customer selected from the database).
 
 We can also **read**, **update** or **remove** the relationship to a customer:
 
@@ -89,18 +89,18 @@ Note that removing the relation does not remove the customer from the database, 
 
 ## To-Many Relations
 
-There is a slight difference if you require a one-to-many \(1:N\) or many-to-many \(N:M\) relation.   
+There is a slight difference if you require a one-to-many (1:N) or many-to-many (N:M) relation. \
 A 1:N relation is like the example above where a customer can have multiple orders, but an order is only associated with a single customer. An example for an N:M relation are students and teachers: students can have classes by several teachers but a teacher can also instruct several students.
 
-### One-to-Many \(1:N\)
+### One-to-Many (1:N)
 
-![One-to-Many \(1:N\)](http://objectbox.io/wordpress/wp-content/uploads/2017/02/One-To-Many-2.png)
+![One-to-Many (1:N)](http://objectbox.io/wordpress/wp-content/uploads/2017/02/One-To-Many-2.png)
 
 Currently, one-to-many relations are defined implicitly as an opposite relation to a [to-one relation ](relations.md#to-one-relations)as defined above. This is useful for queries, e.g. to select all customers with an order placed within the last seven days.
 
-### Many-to-Many \(N:M\)
+### Many-to-Many (N:M)
 
-![Many-to-Many \(N:M\)](http://objectbox.io/wordpress/wp-content/uploads/2017/02/Many-To-Many-2.png)
+![Many-to-Many (N:M)](http://objectbox.io/wordpress/wp-content/uploads/2017/02/Many-To-Many-2.png)
 
 To define a to-many relation, you can use a slice of entities - no need to specify the `link` annotation this time because ObjectBox wouldn't know how to store a slice of structs by itself anyway so it assumes it must be a many-to-may relation. They're stored when you put the source entity and loaded when you read it from the database, unless you specify a `lazy` annotation in which case, they're loaded manually, using `Box::GetRelated()`.
 
@@ -145,7 +145,7 @@ box.Put(student2)
 ```
 {% endcode %}
 
-Similar to the to-one relations, related entities are inserted automatically if they are new. If the teacher entities do not yet exist in the database, the to-many will also put them. If they already exist, the to-many will only create the relation \(but not put them\). 
+Similar to the to-one relations, related entities are inserted automatically if they are new. If the teacher entities do not yet exist in the database, the to-many will also put them. If they already exist, the to-many will only create the relation (but not put them).&#x20;
 
 To **get** the teachers of a student we just access the list:
 
@@ -159,11 +159,11 @@ for _, teacher := range student1.Teachers {
 ```
 {% endcode %}
 
-**Remove** and **update** work similar to insert - you just change the `student.Teachers` slice to reflect the new state \(i.e. remove element, add elements, etc\) and `box.Put(student)`. Note that if you want to change actual teacher data \(e.g. change teachers name\), you need to update the teacher entity itself, not just change it in one of the student.Teachers slice.
+**Remove** and **update** work similar to insert - you just change the `student.Teachers` slice to reflect the new state (i.e. remove element, add elements, etc) and `box.Put(student)`. Note that if you want to change actual teacher data (e.g. change teachers name), you need to update the teacher entity itself, not just change it in one of the student.Teachers slice.
 
 ### Lazy loading
 
-In case the slices might contain many objects and you don't need to access the slice of the related objects each time you work with the source object, you may consider enabling the so called lazy-loading. You do that by specifying the \`lazy\` annotation on the field. Consider the updated model of the previous example: 
+In case the slices might contain many objects and you don't need to access the slice of the related objects each time you work with the source object, you may consider enabling the so called lazy-loading. You do that by specifying the \`lazy\` annotation on the field. Consider the updated model of the previous example:&#x20;
 
 {% code title="model.go" %}
 ```go
@@ -208,7 +208,7 @@ for _, teacher := range student1.Teachers {
 
 #### Updating a lazy-loaded slice
 
-To update the list of `Teachers`, we can either overwrite the slice with completely new data \(new slice\), or if we want to keep the original data and update it, e.g. change a few items, we need to load them first the same way as when [reading \(above\)](relations.md#reading-a-lazy-loaded-slice).
+To update the list of `Teachers`, we can either overwrite the slice with completely new data (new slice), or if we want to keep the original data and update it, e.g. change a few items, we need to load them first the same way as when [reading (above)](relations.md#reading-a-lazy-loaded-slice).
 
 {% code title="main.go" %}
 ```go
@@ -226,4 +226,3 @@ student1.Teachers = append(student1.Teachers, &model.Teacher{Name: "Peter Clever
 box.Put(student1)
 ```
 {% endcode %}
-
