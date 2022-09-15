@@ -94,13 +94,13 @@ A 1:N relation is like the example above where a customer can have multiple orde
 
 ### One-to-Many (1:N)
 
-![One-to-Many (1:N)](http://objectbox.io/wordpress/wp-content/uploads/2017/02/One-To-Many-2.png)
+<figure><img src=".gitbook/assets/one-to-many.png" alt="one to many"><figcaption><p>One-to-Many (1:N)</p></figcaption></figure>
 
 Currently, one-to-many relations are defined implicitly as an opposite relation to a [to-one relation ](relations.md#to-one-relations)as defined above. This is useful for queries, e.g. to select all customers with an order placed within the last seven days.
 
 ### Many-to-Many (N:M)
 
-![Many-to-Many (N:M)](http://objectbox.io/wordpress/wp-content/uploads/2017/02/Many-To-Many-2.png)
+<figure><img src=".gitbook/assets/many-to-many2.png" alt="many to many"><figcaption><p>Many-to-Many (N:M)</p></figcaption></figure>
 
 To define a to-many relation, you can use a slice of entities - no need to specify the `link` annotation this time because ObjectBox wouldn't know how to store a slice of structs by itself anyway so it assumes it must be a many-to-may relation. They're stored when you put the source entity and loaded when you read it from the database, unless you specify a `lazy` annotation in which case, they're loaded manually, using `Box::GetRelated()`.
 
