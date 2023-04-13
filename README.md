@@ -13,7 +13,7 @@ Otherwise, feel free to open an [issue on GitHub](https://github.com/objectbox/o
 
 ## Changelog
 
-### v1.6.1 (2020-01-27)
+### v1.6.1 (2022-01-27)
 
 * Improved version check for the dynamically loaded C lib
 * Update to objectbox-c v0.15.1 which contains fixes and minor performance improvements
