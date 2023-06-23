@@ -13,7 +13,11 @@ Otherwise, feel free to open an [issue on GitHub](https://github.com/objectbox/o
 
 ## Changelog
 
-### v1.6.1 (2020-01-27)
+### v1.7.0 (2023-06-23)
+
+* Update [objectbox-c to v0.18.1](https://cpp.objectbox.io/#0.18.1-2023-01-30) bringing many improvements to Go
+
+### v1.6.1 (2022-01-27)
 
 * Improved version check for the dynamically loaded C lib
 * Update to objectbox-c v0.15.1 which contains fixes and minor performance improvements
